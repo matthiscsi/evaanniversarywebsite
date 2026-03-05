@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Peirt generator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <nav class="top-nav">
+      <a class="back-link" href="index.html">&larr; Terug</a>
+    </nav>
+
+    <section class="panel">
+      <h1>dinkelpeirt generator <span class="heart">&hearts;</span></h1>
+      <p class="hint">wooooo.</p>
+
+      <div class="name-box">
+        <div id="horseName">Druk op genereer</div>
+      </div>
+
+      <fieldset class="part-selector">
+        <legend>Kies je naamstukken</legend>
+        <label class="toggle-pill">
+          <input id="partFirst" type="checkbox" checked>
+          <span>Voornaam</span>
+        </label>
+        <label class="toggle-pill">
+          <input id="partMiddle" type="checkbox" checked>
+          <span>Middenstuk</span>
+        </label>
+        <label class="toggle-pill">
+          <input id="partLast" type="checkbox" checked>
+          <span>Achternaam</span>
+        </label>
+        <label class="toggle-pill">
+          <input id="partTitle" type="checkbox" checked>
+          <span>Extra titel</span>
+        </label>
+      </fieldset>
+
+      <div class="controls">
+        <button id="generateBtn" type="button">Genereer Nieuw peirt!!!!</button>
+        <button id="copyBtn" class="secondary" type="button">Kopieer Naam</button>
+      </div>
+
+      <p class="status" id="copyStatus"></p>
+    </section>
+  </main>
+
+  <script src="scripts/app-horse.js"></script>
+</body>
+</html>
