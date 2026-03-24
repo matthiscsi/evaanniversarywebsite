@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Love hub</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page love-page">
+    <nav class="top-nav">
+      <a class="back-link" href="index.html">&larr; Terug</a>
+    </nav>
+
+    <section class="panel love-hub-panel">
+      <p class="eyebrow">voor sad, boze en drukke hoofdjes</p>
+      <h1>Love hub <span class="heart">&hearts;</span></h1>
+      <p class="hint">
+        Als je sad bent bab
+      </p>
+
+      <div class="comfort-banner">
+        <h2>Voor nu</h2>
+        <p id="comfortMessage" aria-live="polite">
+          Je hoeft niet eerst ok te zijn om geliefd te zijn.
+        </p>
+      </div>
+
+      <div class="controls mood-controls" aria-label="Hoe voel je je vandaag?">
+        <button class="mood-button is-active" data-mood="sad" type="button" aria-pressed="true">Ik ben sad</button>
+        <button class="mood-button" data-mood="boos" type="button" aria-pressed="false">Ik ben angy</button>
+        <button class="mood-button" data-mood="druk" type="button" aria-pressed="false">Overstimulated</button>
+        <button id="hugModeBtn" class="secondary" type="button" aria-pressed="false">Knuffelmodus</button>
+      </div>
+
+      <section class="hug-panel" id="hugPanel" aria-live="polite" hidden>
+        <p class="hug-kicker">Knuffelmodus is aan</p>
+        <h2>999999999999999999999999999999999999999999999999999999999999 VIRTUELE KNUFFELS</h2>
+        <p class="hug-message" id="hugMessage">
+          Je hoeft nu niks te fixen. Alleen even landen.
+        </p>
+        <p class="hug-action" id="hugAction">
+          Pak iets zachts, adem uit en lees alleen deze pagina. Meer hoeft nu niet.
+        </p>
+
+        <div class="controls">
+          <button id="newHugMsgBtn" type="button">Nog een knuffelzin</button>
+          <button id="doHugResetBtn" class="secondary" type="button">Doe mini knuffelreset</button>
+        </div>
+      </section>
+
+      <div class="hub-grid">
+        <article class="hub-card">
+          <h2>Reminders</h2>
+          <p class="hub-text" id="affirmationText" aria-live="polite"></p>
+
+          <div class="controls">
+            <button id="newAffirmationBtn" type="button">Nieuwe zin</button>
+            <button id="pinAffirmationBtn" class="secondary" type="button">Pin deze</button>
+          </div>
+        </article>
+
+        <article class="hub-card">
+          <h2>Waarom ik van je hou</h2>
+          <p class="hub-text" id="reasonText" aria-live="polite"></p>
+
+          <div class="controls">
+            <button id="newReasonBtn" type="button">Nog eentje</button>
+          </div>
+        </article>
+
+        <article class="hub-card">
+          <h2>Kleine reset</h2>
+          <ul class="mini-steps" id="miniSteps"></ul>
+
+          <div class="breathing-box">
+            <h3>Adem even mee</h3>
+            <p id="breathingPrompt" aria-live="polite">
+              Inademen 4, vasthouden 4, uitademen 6. Rustig is genoeg.
+            </p>
+
+            <div class="controls">
+              <button id="breathingBtn" type="button">Start ademrondje</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="hub-card">
+          <h2>Mini glimlach</h2>
+          <p class="hub-text" id="tinyJoyText" aria-live="polite"></p>
+
+          <div class="controls">
+            <button id="newTinyJoyBtn" type="button">Nog iets liefs</button>
+          </div>
+        </article>
+
+        <article class="hub-card hub-card-wide">
+          <h2>Pinned zinnen</h2>
+          <p class="hub-text hub-text-wide" id="pinnedAffirmation">
+            Als je een zin goe vind zet die hier vast met de pin knop
+          </p>
+
+        </article>
+
+        <article class="hub-card hub-card-wide">
+          <h2>Briefje dat ik soms zal bijwerken <3</h2>
+          <p class="hub-text hub-text-wide">
+            Hai bab,
+            <br>
+            <br>
+            als je dit leest en je voelt je sad, boos of gewoon helemaal op, dan wil ik gewoon
+            dat je weet dat ik je nog altijd suuuuper graag zie. Je hoeft niet eerst terug ok, lief,
+            rustig of productief te zijn voor mij. Ook op dagen waar alles shit voelt of je
+            hoofd veel te luid is, blijf jij gewoon mijn favoriete persoon ooit.
+            <br>
+            <br>
+            Je moet niet alles in 1 keer oplossen. Je moet zelfs nu even helemaal niks oplossen.
+            Adem eerst. Drink iets. Kruip in iets zachts. En als de dag stom is, dan is dat zo,
+            maar jij bent daarom nog geen beetje minder waardevol of minder geliefd.
+            <br>
+            <br>
+            Het is en zal altijd team jij en ik zijn 💞.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script src="scripts/app-love-hub.js"></script>
+</body>
+</html>

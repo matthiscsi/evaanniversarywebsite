@@ -1,8 +1,0 @@
-Put your images in this folder.
-
-Example:
-- us-1.jpg
-- us-2.png
-- trip-night.webp
-
-Then update ../photo-list.js with the exact filenames.
