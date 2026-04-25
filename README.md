@@ -1,24 +1,40 @@
-# Eva Anniversary Website (Just for Fun)
+# Eva Anniversary Website
 
-This is a small personal joke project I made as a silly anniversary gift.
+A tiny soft-playful anniversary site in Dutch, now rebuilt as a React + TypeScript app with Vite.
 
 ## What this is
-- A romantic/funny mini website in Dutch
-- A random photo page
-- A meme horse-name generator
 
-## Important note
-This project is intentionally playful and not meant as a professional portfolio piece.
+- A romantic/funny mini website
+- A random Lou photo generator
+- A Peirt name generator
+- A Love hub for sad, angy, and overstimulated moments
 
 ## Tech
-- Plain HTML, CSS, and JavaScript
-- No framework, no backend
+
+- React
+- TypeScript
+- Vite
+- No backend
+- Hash-based navigation for static hosting
 
 ## Local usage
-Open `index.html` in your browser.
 
-If you add/remove files in `photos/`, regenerate `photo-list.js` with:
+Install dependencies:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\sync-photo-list.ps1
+npm install
 ```
+
+Run locally:
+
+```powershell
+npm run dev
+```
+
+Build:
+
+```powershell
+npm run build
+```
+
+Photos are still read from `photos/`. Add or remove image files there and Vite will include them through `import.meta.glob`.
