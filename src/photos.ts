@@ -1,17 +1,65 @@
-const photoModules = import.meta.glob<string>("../photos/*.{jpg,jpeg,JPG,JPEG,png,PNG,gif,GIF}", {
-  eager: true,
-  import: "default",
-  query: "?url"
-});
+const photoFiles = [
+  "4BE46DC7-08F6-4309-8ACD-9DA93BB722A2.jpeg",
+  "IMG_6275.JPEG",
+  "IMG_6553.jpeg",
+  "IMG_6554.jpeg",
+  "IMG_6555.jpeg",
+  "IMG_6938.jpeg",
+  "IMG_6939.jpeg",
+  "IMG_6940.jpeg",
+  "IMG_6941.jpeg",
+  "IMG_6942.jpeg",
+  "IMG_6943.jpeg",
+  "IMG_6944.jpeg",
+  "IMG_6945.jpeg",
+  "IMG_6946.jpeg",
+  "IMG_6963.jpeg",
+  "IMG_6964.jpeg",
+  "IMG_7067.JPG",
+  "IMG_7070.JPG",
+  "IMG_7075.JPG",
+  "IMG_7284.JPG",
+  "IMG_7320.JPG",
+  "IMG_7747.JPG",
+  "IMG_7798.jpeg",
+  "IMG_7799.jpeg",
+  "IMG_7800.jpeg",
+  "IMG_7801.jpeg",
+  "IMG_7802.jpeg",
+  "IMG_7803.jpeg",
+  "IMG_7804.jpeg",
+  "IMG_7805.jpeg",
+  "IMG_7806.jpeg",
+  "IMG_7807.jpeg",
+  "IMG_7812.jpg",
+  "IMG_7816.JPG",
+  "IMG_7834.JPG",
+  "IMG_7847.JPG",
+  "IMG_7848.JPG",
+  "IMG_8277.JPG",
+  "IMG_8471.JPG",
+  "IMG_8472.JPG",
+  "IMG_8473.JPG",
+  "IMG_8474.JPG",
+  "IMG_8475.JPG",
+  "IMG_8476.JPG",
+  "IMG_8477.JPG",
+  "IMG_8479.JPG",
+  "IMG_8480.JPG",
+  "IMG_8481.JPG",
+  "IMG_8482.JPG",
+  "IMG_8483.JPG",
+  "IMG_8484.JPG",
+  "IMG_8486.JPG",
+  "IMG_8487.JPG"
+] as const;
 
 export interface PhotoItem {
   name: string;
   src: string;
 }
 
-export const photos: PhotoItem[] = Object.entries(photoModules)
-  .map(([path, src]) => ({
-    name: path.split("/").pop() ?? "foto",
-    src
-  }))
-  .sort((a, b) => a.name.localeCompare(b.name));
+export const photos: PhotoItem[] = photoFiles.map((name) => ({
+  name,
+  src: `./photos/${name}`
+}));
