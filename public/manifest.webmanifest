@@ -1,0 +1,16 @@
+{
+  "name": "Silly aap site",
+  "short_name": "Aap site",
+  "start_url": "/#/",
+  "display": "standalone",
+  "background_color": "#fff8f3",
+  "theme_color": "#fff6f2",
+  "description": "Een zacht hoekje voor Eva met foto's, silly peirtnamen en de Love hub.",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23fff6f2'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-size='34'%3E%E2%99%A5%3C/text%3E%3C/svg%3E",
+      "sizes": "64x64",
+      "type": "image/svg+xml"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import {
   breathingSequence,
   horseParts,
@@ -10,8 +10,14 @@ import {
   type Page
 } from "./data";
 import { photos, type PhotoItem } from "./photos";
+import { nextBreathingStep } from "./lib/breathing";
+import { pickRandom } from "./lib/random";
+import { hashFromPage, pageFromHash } from "./lib/routing";
+import { safeGetLocalStorage, safeSetLocalStorage } from "./lib/storage";
 
-const STORAGE_KEY = "loveHubPinnedAffirmation";
+const PINNED_STORAGE_KEY = "loveHub.pinned.v2";
+const FAVORITE_PHOTO_KEY = "lou.favorite.v1";
+
 const pageTitles: Record<Page, string> = {
   home: "Silly aap site",
   photos: "Lou generator",
@@ -19,56 +25,32 @@ const pageTitles: Record<Page, string> = {
   love: "Love hub"
 };
 
-const pages = new Set<Page>(["home", "photos", "horse", "love"]);
-
-function pageFromHash(): Page {
-  const value = window.location.hash.replace(/^#\/?/, "");
-  return pages.has(value as Page) ? (value as Page) : "home";
-}
-
 function goTo(page: Page) {
-  window.location.hash = page === "home" ? "#/" : `#/${page}`;
-}
-
-function pickRandom<T>(items: readonly T[], previous?: T): T {
-  if (items.length === 0) {
-    throw new Error("Cannot pick from an empty list.");
-  }
-
-  if (items.length === 1) {
-    return items[0];
-  }
-
-  let next = items[Math.floor(Math.random() * items.length)];
-  while (next === previous) {
-    next = items[Math.floor(Math.random() * items.length)];
-  }
-
-  return next;
+  window.location.hash = hashFromPage(page);
 }
 
 function App() {
-  const [page, setPage] = useState<Page>(() => pageFromHash());
+  const [page, setPage] = useState<Page>(() => pageFromHash(window.location.hash));
 
   useEffect(() => {
-    const syncPage = () => setPage(pageFromHash());
+    const syncPage = () => setPage(pageFromHash(window.location.hash));
     window.addEventListener("hashchange", syncPage);
 
     if (!window.location.hash) {
-      window.history.replaceState(null, "", "#/");
+      window.history.replaceState(null, "", hashFromPage("home"));
     }
 
     return () => window.removeEventListener("hashchange", syncPage);
   }, []);
 
   useEffect(() => {
-    document.title = pageTitles[page];
+    document.title = `${pageTitles[page]} | Eva`;
   }, [page]);
 
   return (
     <div className="app-shell">
       <Header activePage={page} />
-      <main>
+      <main id="main-content">
         {page === "home" && <Home />}
         {page === "photos" && <PhotoGenerator />}
         {page === "horse" && <HorseGenerator />}
@@ -117,7 +99,7 @@ function Home() {
         <div className="hero-copy">
           <p className="eyebrow">ily bb</p>
           <h1>
-            Silly aap site<span className="heart">♥</span>
+            Silly aap site<span className="heart">?</span>
           </h1>
           <p className="lead">
             Een zacht mini-hoekje voor random Lou fotos, ster stabel peirt namen en een Love hub
@@ -137,11 +119,12 @@ function Home() {
         <div className="photo-stack" aria-label="Foto preview">
           {featuredPhotos.map((photo, index) => (
             <img
-              key={photo.name}
+              key={photo.id}
               src={photo.src}
               alt=""
               className={`stack-photo stack-photo-${index + 1}`}
               loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
             />
           ))}
         </div>
@@ -199,58 +182,117 @@ function FeatureCard({
       <span className="eyebrow">{kicker}</span>
       <span className="feature-title">{title}</span>
       <span className="feature-text">{text}</span>
-      <span className="feature-link">{action} →</span>
+      <span className="feature-link">{action} ?</span>
     </button>
   );
 }
 
 function PhotoGenerator() {
-  const [currentPhoto, setCurrentPhoto] = useState<PhotoItem | null>(() => photos[0] ?? null);
-  const [status, setStatus] = useState("Klaar voor de eerste foto...");
+  const [brokenPhotoIds, setBrokenPhotoIds] = useState<string[]>([]);
+  const [history, setHistory] = useState<PhotoItem[]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+  const [status, setStatus] = useState("Klaar voor een nieuwe foto.");
+  const [favoritePhotoId, setFavoritePhotoId] = useState(() => safeGetLocalStorage(FAVORITE_PHOTO_KEY));
 
-  const renderRandomPhoto = useCallback(() => {
-    if (!photos.length) {
-      setCurrentPhoto(null);
-      setStatus("Nog geen foto's gevonden. Voeg bestanden toe in photos/.");
+  const availablePhotos = useMemo(
+    () => photos.filter((photo) => !brokenPhotoIds.includes(photo.id)),
+    [brokenPhotoIds]
+  );
+
+  const currentPhoto = history[historyIndex] ?? null;
+
+  const showRandomPhoto = useCallback(() => {
+    if (availablePhotos.length === 0) {
+      setStatus("Geen bruikbare foto's gevonden. Zet foto's in /photos.");
       return;
     }
 
-    const next = pickRandom(photos, currentPhoto ?? undefined);
-    setCurrentPhoto(next);
-    setStatus(`Nu zichtbaar: ${next.name}`);
-  }, [currentPhoto]);
+    const previous = currentPhoto ?? undefined;
+    const next = pickRandom(availablePhotos, previous);
+
+    setHistory((current) => [...current.slice(0, historyIndex + 1), next]);
+    setHistoryIndex((current) => current + 1);
+    setStatus("Nieuw Lou momentje klaar.");
+  }, [availablePhotos, currentPhoto, historyIndex]);
+
+  useEffect(() => {
+    if (historyIndex < 0 && availablePhotos.length > 0) {
+      setHistory([availablePhotos[0]]);
+      setHistoryIndex(0);
+    }
+  }, [availablePhotos, historyIndex]);
 
   useEffect(() => {
     const onKeydown = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (target && ["INPUT", "TEXTAREA", "BUTTON", "SELECT"].includes(target.tagName)) {
+        return;
+      }
       if (event.code === "Space") {
         event.preventDefault();
-        renderRandomPhoto();
+        showRandomPhoto();
       }
     };
 
     window.addEventListener("keydown", onKeydown);
     return () => window.removeEventListener("keydown", onKeydown);
-  }, [renderRandomPhoto]);
+  }, [showRandomPhoto]);
+
+  function markPhotoBroken(photo: PhotoItem) {
+    setBrokenPhotoIds((current) => (current.includes(photo.id) ? current : [...current, photo.id]));
+    setStatus("Deze foto kon niet geladen worden, we slaan hem over.");
+  }
+
+  function toggleFavorite() {
+    if (!currentPhoto) {
+      return;
+    }
+
+    const next = favoritePhotoId === currentPhoto.id ? "" : currentPhoto.id;
+    setFavoritePhotoId(next);
+    safeSetLocalStorage(FAVORITE_PHOTO_KEY, next);
+  }
 
   return (
-    <section className="tool-layout page-enter">
+    <section className="tool-layout page-enter" aria-labelledby="lou-title">
       <div className="tool-intro">
         <p className="eyebrow">random cuteness</p>
-        <h1>
-          Louli generator <span className="heart">♥</span>
+        <h1 id="lou-title">
+          Louli generator <span className="heart">?</span>
         </h1>
-        <p className="lead">Druk op de knop of spatie voor een nieuwe foto.</p>
-        <button className="primary-action" type="button" onClick={renderRandomPhoto}>
-          Nieuwe Random Foto
-        </button>
-        <p className="status" aria-live="polite">
-          {status}
-        </p>
+        <p className="lead">Druk op de knop of spatie voor een nieuwe foto. Geen dubbele direct na elkaar.</p>
+        <div className="controls">
+          <button className="primary-action" type="button" onClick={showRandomPhoto}>
+            Nieuwe random foto
+          </button>
+          <button className="secondary-action" type="button" onClick={() => setHistoryIndex((v) => Math.max(0, v - 1))} disabled={historyIndex <= 0}>
+            Vorige
+          </button>
+          <button className="secondary-action" type="button" onClick={() => setHistoryIndex((v) => Math.min(history.length - 1, v + 1))} disabled={historyIndex >= history.length - 1}>
+            Volgende
+          </button>
+          <button className="secondary-action" type="button" onClick={toggleFavorite} disabled={!currentPhoto}>
+            {currentPhoto && favoritePhotoId === currentPhoto.id ? "Favoriet vast" : "Pin favoriet"}
+          </button>
+        </div>
+        <p className="status" aria-live="polite">{status}</p>
       </div>
 
       <figure className="photo-stage">
         {currentPhoto ? (
-          <img src={currentPhoto.src} alt="Random foto van ons" />
+          <>
+            <img
+              src={currentPhoto.src}
+              alt={currentPhoto.caption}
+              loading="lazy"
+              decoding="async"
+              onError={() => markPhotoBroken(currentPhoto)}
+            />
+            <figcaption>
+              {favoritePhotoId === currentPhoto.id ? "? " : ""}
+              {currentPhoto.caption}
+            </figcaption>
+          </>
         ) : (
           <figcaption>Geen fotos gevonden.</figcaption>
         )}
@@ -268,14 +310,12 @@ function HorseGenerator() {
   });
   const [horseName, setHorseName] = useState("Druk op genereer");
   const [status, setStatus] = useState("");
+  const [history, setHistory] = useState<string[]>([]);
 
   const generateHorse = useCallback(() => {
     const baseParts: string[] = [];
 
-    if (enabledParts.first) {
-      baseParts.push(pickRandom(horseParts.first));
-    }
-
+    if (enabledParts.first) baseParts.push(pickRandom(horseParts.first));
     if (enabledParts.middle) {
       if (baseParts.length) {
         baseParts[baseParts.length - 1] += pickRandom(horseParts.middle);
@@ -283,10 +323,7 @@ function HorseGenerator() {
         baseParts.push(pickRandom(horseParts.middle));
       }
     }
-
-    if (enabledParts.last) {
-      baseParts.push(pickRandom(horseParts.last));
-    }
+    if (enabledParts.last) baseParts.push(pickRandom(horseParts.last));
 
     if (!baseParts.length) {
       setHorseName("Niks aangevinkt");
@@ -297,6 +334,7 @@ function HorseGenerator() {
     const title = enabledParts.title ? pickRandom(horseParts.title) : "";
     const nextName = title ? `${baseParts.join(" ")} ${title}` : baseParts.join(" ");
     setHorseName(nextName);
+    setHistory((current) => [nextName, ...current.filter((name) => name !== nextName)].slice(0, 6));
     setStatus("");
   }, [enabledParts]);
 
@@ -312,18 +350,26 @@ function HorseGenerator() {
 
     try {
       await navigator.clipboard.writeText(horseName);
-      setStatus(`Gekopieerd: ${horseName}`);
+      setStatus("Naam gekopieerd.");
     } catch {
-      setStatus("Clipboard geblokkeerd. Kopieer handmatig.");
+      const textarea = document.createElement("textarea");
+      textarea.value = horseName;
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      const ok = document.execCommand("copy");
+      document.body.removeChild(textarea);
+      setStatus(ok ? "Naam gekopieerd." : "Kopieren lukte niet. Selecteer handmatig.");
     }
   }
 
   return (
-    <section className="generator-panel page-enter">
+    <section className="generator-panel page-enter" aria-labelledby="horse-title">
       <div className="tool-intro compact">
         <p className="eyebrow">chaos mode</p>
-        <h1>
-          dinkelpeirt generator <span className="heart">♥</span>
+        <h1 id="horse-title">
+          dinkelpeirt generator <span className="heart">?</span>
         </h1>
         <p className="lead">wooooo. Maak een naam die onmogelijk serieus te nemen is.</p>
       </div>
@@ -355,16 +401,21 @@ function HorseGenerator() {
 
       <div className="controls">
         <button className="primary-action" type="button" onClick={generateHorse}>
-          Genereer Nieuw peirt!!!!
+          Genereer nieuw peirt
         </button>
         <button className="secondary-action" type="button" onClick={copyCurrentName}>
-          Kopieer Naam
+          Kopieer naam
         </button>
       </div>
 
-      <p className="status" aria-live="polite">
-        {status}
-      </p>
+      <p className="status" aria-live="polite">{status}</p>
+      {history.length > 0 && (
+        <ul className="history-list" aria-label="Recente peirtnamen">
+          {history.map((name) => (
+            <li key={name}>{name}</li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 }
@@ -375,35 +426,31 @@ function LoveHub() {
   const [affirmation, setAffirmation] = useState(() => pickRandom(moodPacks.sad.affirmations));
   const [reason, setReason] = useState(() => pickRandom(moodPacks.sad.reasons));
   const [tinyJoy, setTinyJoy] = useState(() => pickRandom(moodPacks.sad.tinyJoy));
-  const [pinned, setPinned] = useState(() => {
+  const [pinned, setPinned] = useState<string[]>(() => {
     try {
-      return window.localStorage.getItem(STORAGE_KEY) || "";
+      const parsed = JSON.parse(safeGetLocalStorage(PINNED_STORAGE_KEY)) as unknown;
+      return Array.isArray(parsed) ? parsed.filter((value): value is string => typeof value === "string") : [];
     } catch {
-      return "";
+      return [];
     }
   });
   const [pinStatus, setPinStatus] = useState("Pin deze");
   const [hugMode, setHugMode] = useState(false);
   const [hugMessage, setHugMessage] = useState(() => pickRandom(hugMessages));
   const [hugAction, setHugAction] = useState(() => pickRandom(hugActions));
-  const [breathingPrompt, setBreathingPrompt] = useState(
-    "Inademen 4, vasthouden 4, uitademen 6. Rustig is genoeg."
-  );
+  const [breathingPrompt, setBreathingPrompt] = useState("Inademen 4, vasthouden 4, uitademen 6. Rustig is genoeg.");
   const [breathingActive, setBreathingActive] = useState(false);
   const breathingTimer = useRef<number | null>(null);
 
   const currentPack = moodPacks[mood];
 
-  const refreshMoodContent = useCallback(
-    (nextMood: Mood) => {
-      const pack = moodPacks[nextMood];
-      setComfort((previous) => pickRandom(pack.comfort, previous));
-      setAffirmation((previous) => pickRandom(pack.affirmations, previous));
-      setReason((previous) => pickRandom(pack.reasons, previous));
-      setTinyJoy((previous) => pickRandom(pack.tinyJoy, previous));
-    },
-    []
-  );
+  const refreshMoodContent = useCallback((nextMood: Mood) => {
+    const pack = moodPacks[nextMood];
+    setComfort((previous) => pickRandom(pack.comfort, previous));
+    setAffirmation((previous) => pickRandom(pack.affirmations, previous));
+    setReason((previous) => pickRandom(pack.reasons, previous));
+    setTinyJoy((previous) => pickRandom(pack.tinyJoy, previous));
+  }, []);
 
   const refreshHugSupport = useCallback(() => {
     setHugMessage((previous) => pickRandom(hugMessages, previous));
@@ -423,56 +470,50 @@ function LoveHub() {
     refreshMoodContent(nextMood);
   }
 
-  function toggleHugMode() {
-    setHugMode((current) => {
-      const next = !current;
-      if (next) {
-        refreshHugSupport();
-        refreshMoodContent(mood);
-        setBreathingPrompt("Ok bb. 1 keer samen: in 4, hou 4, uit 6. Meer hoeft nu niet.");
-      }
-      return next;
-    });
-  }
-
-  function doHugReset() {
-    setHugMode(true);
-    refreshHugSupport();
-    refreshMoodContent(mood);
-    setBreathingPrompt("Ok bb. 1 keer samen: in 4, hou 4, uit 6. Meer hoeft niet.");
-  }
-
   function pinCurrentAffirmation() {
-    try {
-      window.localStorage.setItem(STORAGE_KEY, affirmation);
-      setPinned(affirmation);
-      setPinStatus("Gepind");
-      window.setTimeout(() => setPinStatus("Pin deze"), 1500);
-    } catch {
+    const next = [affirmation, ...pinned.filter((line) => line !== affirmation)].slice(0, 5);
+    const ok = safeSetLocalStorage(PINNED_STORAGE_KEY, JSON.stringify(next));
+    if (!ok) {
       setPinStatus("Kon niet pinnen");
+      return;
     }
+    setPinned(next);
+    setPinStatus("Gepind");
+    window.setTimeout(() => setPinStatus("Pin deze"), 1400);
+  }
+
+  function clearPinned() {
+    const ok = safeSetLocalStorage(PINNED_STORAGE_KEY, JSON.stringify([]));
+    if (ok) {
+      setPinned([]);
+    }
+  }
+
+  function stopBreathing() {
+    if (breathingTimer.current) {
+      window.clearTimeout(breathingTimer.current);
+      breathingTimer.current = null;
+    }
+    setBreathingActive(false);
+    setBreathingPrompt("Stop gezet. Je mag straks opnieuw proberen.");
   }
 
   function runBreathingStep(stepIndex: number) {
     setBreathingPrompt(breathingSequence[stepIndex].text);
     breathingTimer.current = window.setTimeout(() => {
-      const nextIndex = stepIndex + 1;
-      if (nextIndex >= breathingSequence.length) {
+      const nextIndex = nextBreathingStep(breathingSequence, stepIndex);
+      if (nextIndex === null) {
         breathingTimer.current = null;
         setBreathingActive(false);
         setBreathingPrompt("Rondje klaar. Nog eentje mag, niks moet.");
         return;
       }
-
       runBreathingStep(nextIndex);
     }, breathingSequence[stepIndex].delay);
   }
 
   function startBreathing() {
-    if (breathingActive) {
-      return;
-    }
-
+    if (breathingActive) return;
     setBreathingActive(true);
     runBreathingStep(0);
   }
@@ -482,7 +523,7 @@ function LoveHub() {
       <div className="love-hero">
         <p className="eyebrow">voor sad, boze en drukke hoofdjes</p>
         <h1>
-          Love hub <span className="heart">♥</span>
+          Love hub <span className="heart">?</span>
         </h1>
         <p className="lead">Als je sad bent bab, of als je hoofd veel te luid staat.</p>
 
@@ -503,12 +544,7 @@ function LoveHub() {
               {moodPacks[moodKey].label}
             </button>
           ))}
-          <button
-            className="secondary-action"
-            type="button"
-            aria-pressed={hugMode}
-            onClick={toggleHugMode}
-          >
+          <button className="secondary-action" type="button" aria-pressed={hugMode} onClick={() => setHugMode((v) => !v)}>
             {hugMode ? "Knuffelmodus aan" : "Knuffelmodus"}
           </button>
         </div>
@@ -517,15 +553,15 @@ function LoveHub() {
       {hugMode && (
         <section className="hug-panel" aria-live="polite">
           <p className="eyebrow">Knuffelmodus is aan</p>
-          <h2>999999999999999999999999999999999999999999999999999999999999 virtuele knuffels</h2>
+          <h2>9999999999999999999999 virtuele knuffels</h2>
           <p className="hug-message">{hugMessage}</p>
           <p>{hugAction}</p>
           <div className="controls">
             <button className="primary-action" type="button" onClick={refreshHugSupport}>
               Nog een knuffelzin
             </button>
-            <button className="secondary-action" type="button" onClick={doHugReset}>
-              Doe mini knuffelreset
+            <button className="secondary-action" type="button" onClick={() => refreshMoodContent(mood)}>
+              Mini knuffelreset
             </button>
           </div>
         </section>
@@ -533,17 +569,9 @@ function LoveHub() {
 
       <div className="hub-grid">
         <HubCard title="Reminders">
-          <p className="hub-text" aria-live="polite">
-            {affirmation}
-          </p>
+          <p className="hub-text" aria-live="polite">{affirmation}</p>
           <div className="controls">
-            <button
-              className="primary-action"
-              type="button"
-              onClick={() =>
-                setAffirmation((previous) => pickRandom(currentPack.affirmations, previous))
-              }
-            >
+            <button className="primary-action" type="button" onClick={() => setAffirmation((previous) => pickRandom(currentPack.affirmations, previous))}>
               Nieuwe zin
             </button>
             <button className="secondary-action" type="button" onClick={pinCurrentAffirmation}>
@@ -553,14 +581,8 @@ function LoveHub() {
         </HubCard>
 
         <HubCard title="Waarom ik van je hou">
-          <p className="hub-text" aria-live="polite">
-            {reason}
-          </p>
-          <button
-            className="secondary-action inline-action"
-            type="button"
-            onClick={() => setReason((previous) => pickRandom(currentPack.reasons, previous))}
-          >
+          <p className="hub-text" aria-live="polite">{reason}</p>
+          <button className="secondary-action inline-action" type="button" onClick={() => setReason((previous) => pickRandom(currentPack.reasons, previous))}>
             Nog eentje
           </button>
         </HubCard>
@@ -574,69 +596,46 @@ function LoveHub() {
           <div className="breathing-box">
             <h3>Adem even mee</h3>
             <p aria-live="polite">{breathingPrompt}</p>
-            <button
-              className="primary-action"
-              type="button"
-              disabled={breathingActive}
-              onClick={startBreathing}
-            >
-              {breathingActive ? "Ademen..." : "Start ademrondje"}
-            </button>
+            <div className="controls">
+              <button className="primary-action" type="button" disabled={breathingActive} onClick={startBreathing}>
+                {breathingActive ? "Ademen..." : "Start ademrondje"}
+              </button>
+              <button className="secondary-action" type="button" onClick={stopBreathing} disabled={!breathingActive}>
+                Stop
+              </button>
+            </div>
           </div>
         </HubCard>
 
         <HubCard title="Mini glimlach">
-          <p className="hub-text" aria-live="polite">
-            {tinyJoy}
-          </p>
-          <button
-            className="secondary-action inline-action"
-            type="button"
-            onClick={() => setTinyJoy((previous) => pickRandom(currentPack.tinyJoy, previous))}
-          >
+          <p className="hub-text" aria-live="polite">{tinyJoy}</p>
+          <button className="secondary-action inline-action" type="button" onClick={() => setTinyJoy((previous) => pickRandom(currentPack.tinyJoy, previous))}>
             Nog iets liefs
           </button>
         </HubCard>
 
         <HubCard title="Pinned zinnen" wide>
-          <p className="hub-text wide" aria-live="polite">
-            {pinned || "Nog niks gepind. Als een zin goed is kan je er hier eentje zetten bb."}
-          </p>
-        </HubCard>
-
-        <HubCard title="Briefje dat ik soms zal bijwerken <3" wide>
-          <p className="hub-text wide">
-            Hai bab,
-            <br />
-            <br />
-            als je dit leest en je voelt je sad, boos of gewoon helemaal op, dan wil ik gewoon
-            dat je weet dat ik je nog altijd suuuuper graag zie. Je hoeft niet eerst terug ok,
-            lief, rustig of productief te zijn voor mij. Ook op dagen waar alles shit voelt of je
-            hoofd veel te luid is, blijf jij gewoon mijn favoriete persoon ooit.
-            <br />
-            <br />
-            Je moet niet alles in 1 keer oplossen. Je moet zelfs nu even helemaal niks oplossen.
-            Adem eerst. Drink iets. Kruip in iets zachts. En als de dag stom is, dan is dat zo,
-            maar jij bent daarom nog geen beetje minder waardevol of minder geliefd.
-            <br />
-            <br />
-            Het is en zal altijd team jij en ik zijn.
-          </p>
+          {pinned.length ? (
+            <ul className="history-list" aria-live="polite">
+              {pinned.map((line) => (
+                <li key={line}>{line}</li>
+              ))}
+            </ul>
+          ) : (
+            <p className="hub-text wide">Nog niks gepind. Als een zin goed is kan je er hier eentje zetten bb.</p>
+          )}
+          {pinned.length > 0 && (
+            <button className="secondary-action inline-action" type="button" onClick={clearPinned}>
+              Clear pinned
+            </button>
+          )}
         </HubCard>
       </div>
     </section>
   );
 }
 
-function HubCard({
-  title,
-  children,
-  wide = false
-}: {
-  title: string;
-  children: ReactNode;
-  wide?: boolean;
-}) {
+function HubCard({ title, children, wide = false }: { title: string; children: ReactNode; wide?: boolean }) {
   return (
     <article className={wide ? "hub-card wide-card" : "hub-card"}>
       <h2>{title}</h2>

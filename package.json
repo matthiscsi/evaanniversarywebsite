@@ -5,8 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build": "if exist dist rmdir /s /q dist && tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "lint": "tsc --noEmit",
+    "test": "node --import tsx --test tests/random.test.ts tests/routing.test.ts tests/storage.test.ts tests/breathing.test.ts",
+    "test:watch": "node --import tsx --test --watch tests/random.test.ts tests/routing.test.ts tests/storage.test.ts tests/breathing.test.ts"
   },
   "dependencies": {
     "react": "^19.2.5",
@@ -16,6 +20,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
+    "tsx": "^4.20.6",
     "typescript": "^6.0.3",
     "vite": "^8.0.10"
   }
