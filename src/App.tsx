@@ -99,7 +99,7 @@ function Home() {
         <div className="hero-copy">
           <p className="eyebrow">ily bb</p>
           <h1>
-            Silly aap site<span className="heart">?</span>
+            Silly aap site<span className="heart">{"\u2665"}</span>
           </h1>
           <p className="lead">
             Een zacht mini-hoekje voor random Lou fotos, ster stabel peirt namen en een Love hub
@@ -113,6 +113,12 @@ function Home() {
             <button className="secondary-action" type="button" onClick={() => goTo("photos")}>
               Random Lou
             </button>
+          </div>
+          <p className="soft-note">Geen stress-app. Gewoon een zacht hoekje voor jou, bb.</p>
+          <div className="hero-badges" aria-label="Sfeertje">
+            <span className="hero-badge">100% Eva approved</span>
+            <span className="hero-badge">geen corporate vibes</span>
+            <span className="hero-badge">veel liefde + chaos</span>
           </div>
         </div>
 
@@ -182,7 +188,9 @@ function FeatureCard({
       <span className="eyebrow">{kicker}</span>
       <span className="feature-title">{title}</span>
       <span className="feature-text">{text}</span>
-      <span className="feature-link">{action} ?</span>
+      <span className="feature-link">
+        {action} {"\u2192"}
+      </span>
     </button>
   );
 }
@@ -258,10 +266,10 @@ function PhotoGenerator() {
       <div className="tool-intro">
         <p className="eyebrow">random cuteness</p>
         <h1 id="lou-title">
-          Louli generator <span className="heart">?</span>
+          Louli generator <span className="heart">{"\u2665"}</span>
         </h1>
         <p className="lead">Druk op de knop of spatie voor een nieuwe foto. Geen dubbele direct na elkaar.</p>
-        <div className="controls">
+        <div className="controls photo-controls">
           <button className="primary-action" type="button" onClick={showRandomPhoto}>
             Nieuwe random foto
           </button>
@@ -289,7 +297,7 @@ function PhotoGenerator() {
               onError={() => markPhotoBroken(currentPhoto)}
             />
             <figcaption>
-              {favoritePhotoId === currentPhoto.id ? "? " : ""}
+              {favoritePhotoId === currentPhoto.id ? "\u2605 " : ""}
               {currentPhoto.caption}
             </figcaption>
           </>
@@ -369,7 +377,7 @@ function HorseGenerator() {
       <div className="tool-intro compact">
         <p className="eyebrow">chaos mode</p>
         <h1 id="horse-title">
-          dinkelpeirt generator <span className="heart">?</span>
+          dinkelpeirt generator <span className="heart">{"\u2665"}</span>
         </h1>
         <p className="lead">wooooo. Maak een naam die onmogelijk serieus te nemen is.</p>
       </div>
@@ -410,11 +418,14 @@ function HorseGenerator() {
 
       <p className="status" aria-live="polite">{status}</p>
       {history.length > 0 && (
-        <ul className="history-list" aria-label="Recente peirtnamen">
-          {history.map((name) => (
-            <li key={name}>{name}</li>
-          ))}
-        </ul>
+        <div className="history-wrap">
+          <p className="history-label">Recente peirt hall of fame</p>
+          <ul className="history-list" aria-label="Recente peirtnamen">
+            {history.map((name) => (
+              <li key={name}>{name}</li>
+            ))}
+          </ul>
+        </div>
       )}
     </section>
   );
@@ -523,9 +534,10 @@ function LoveHub() {
       <div className="love-hero">
         <p className="eyebrow">voor sad, boze en drukke hoofdjes</p>
         <h1>
-          Love hub <span className="heart">?</span>
+          Love hub <span className="heart">{"\u2665"}</span>
         </h1>
         <p className="lead">Als je sad bent bab, of als je hoofd veel te luid staat.</p>
+        <p className="soft-note">Alles hier is bedoeld als comfort. Niks moet, alles mag traag.</p>
 
         <div className="comfort-banner">
           <span>Voor nu</span>
@@ -546,6 +558,9 @@ function LoveHub() {
           ))}
           <button className="secondary-action" type="button" aria-pressed={hugMode} onClick={() => setHugMode((v) => !v)}>
             {hugMode ? "Knuffelmodus aan" : "Knuffelmodus"}
+          </button>
+          <button className="secondary-action" type="button" onClick={() => refreshMoodContent(mood)}>
+            Quick comfort
           </button>
         </div>
       </div>
