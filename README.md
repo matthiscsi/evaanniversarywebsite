@@ -117,3 +117,4 @@ Basis flow:
 
 - Geen service worker/offline cache (bewust, om stale-update issues te vermijden)
 - Geen analytics (bewust)
+
