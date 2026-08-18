@@ -72,7 +72,7 @@ export function PinLockScreen({ onUnlock }: PinLockScreenProps) {
           </div>
           <h1>Silly aap site</h1>
           <p className="pin-subtitle">
-            Officiele aap controle.<br />Voer de 4-cijferige code in om binnen te geraken bb.
+            Officiele aap controle.<br />Voer de 4-cijferige code in om binnen te geraken.
           </p>
         </div>
 
