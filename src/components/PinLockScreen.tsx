@@ -121,7 +121,7 @@ export function PinLockScreen({ onUnlock }: PinLockScreenProps) {
         </div>
 
         <p className="pin-hint">
-          Tip: je kan ook gewoon de cijfers op je toetsenbord typen.
+          Tip: jouw laptop 💻
         </p>
       </div>
     </div>
