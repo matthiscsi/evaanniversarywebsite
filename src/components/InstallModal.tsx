@@ -83,7 +83,7 @@ export function InstallModal({ isOpen, onClose }: InstallModalProps) {
             <div className="install-step-badge">3</div>
             <div className="install-step-content">
               <strong>Kies &quot;Zet op beginscherm&quot;</strong>
-              <span>Scroll een klein stukje naar beneden en tik op <strong>&quot;Zet op beginscherm&quot;</strong> (of <em>Add to Home Screen</em>). Druk daarop met uw vingerke.</span>
+              <span>Scroll een klein stukje naar beneden en tik op <strong>&quot;Zet op beginscherm&quot;</strong> (of <em>Add to Home Screen</em>). Druk daarop.</span>
             </div>
             <span className="install-step-icon">➕</span>
           </div>
