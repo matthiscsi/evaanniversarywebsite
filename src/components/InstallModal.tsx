@@ -92,7 +92,7 @@ export function InstallModal({ isOpen, onClose }: InstallModalProps) {
             <div className="install-step-badge">4</div>
             <div className="install-step-content">
               <strong>Tik op &quot;Voeg toe&quot;</strong>
-              <span>Rechtsboven op <strong>&quot;Voeg toe&quot;</strong> rammen. Boem, Louli staat nu te blinken tussen al uw apps!</span>
+              <span>Rechtsboven op <strong>&quot;Voeg toe&quot;</strong> rammen. Boem, Louli staat nu op u gsm!</span>
             </div>
             <span className="install-step-icon">✨</span>
           </div>
