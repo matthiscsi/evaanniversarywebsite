@@ -4,7 +4,7 @@ Een persoonlijk, zacht, grappig en romantisch React-siteke voor Eva.
 
 ## Wat zit erin
 
-- **PIN Beveiliging**: 4-cijferige pincode (`4679`) met virtueel numpad en shake-feedback voor privacy op publieke hosting
+- **PIN Beveiliging**: 6-cijferige pincode (`467946`) met virtueel numpad en shake-feedback voor privacy op publieke hosting
 - Lou foto generator met random, vorige/volgende en favoriet pin
 - Peirt naam generator met copy en kleine history
 - **wtf gaan wij eten**: Draairad voor keuzestress met *frietjes*, *piesta* en *pokebowl* + confetti
