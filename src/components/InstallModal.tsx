@@ -54,7 +54,7 @@ export function InstallModal({ isOpen, onClose }: InstallModalProps) {
               <span className="install-app-subtitle">Official Louli App</span>
             </div>
           </div>
-          <h2>Installeer die handel op je iPhone 📱</h2>
+          <h2>Installeer die shit op je iPhone 📱</h2>
           <p className="install-lead">
             Zodat ge nie elke keer Safari moet openen lijk een holbewoner. Ge krijgt een echt Louli icoontje op uw beginscherm en zero browserbalken!
           </p>
