@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { navItems, type Page } from "../data";
 import { isSoundEnabled, playPop, toggleSound } from "../lib/sound";
 import { applyTheme, getInitialTheme, type Theme } from "../lib/theme";
+import louLogo from "../assets/lou-logo.png";
 
 interface HeaderProps {
   activePage: Page;
@@ -38,7 +39,7 @@ export function Header({ activePage, onNavigate, onLock }: HeaderProps) {
   return (
     <header className="site-header">
       <button className="brand-button" type="button" onClick={() => handleNav("home")}>
-        <img className="brand-mark" src="/lou-logo.png" alt="Louli" width="44" height="44" />
+        <img className="brand-mark" src={louLogo} alt="Louli" width="44" height="44" />
         <span>
           <span className="brand-name">Silly aap site</span>
           <span className="brand-subtitle">officiele aap site 2026</span>

@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { UPGRADES, getUpgradeCost, calculateStats } from "../lib/clicker";
 import { safeGetLocalStorage, safeSetLocalStorage } from "../lib/storage";
 import { playPop, playSuccess } from "../lib/sound";
+import louLogo from "../assets/lou-logo.png";
 
 const CLICKER_STORAGE_KEY = "lou.clicker.save.v1";
 
@@ -173,7 +174,7 @@ export function LouliClicker() {
                   onClick={handleTap}
                   aria-label="Kroel Louli"
                 >
-                  <img src="/lou-logo.png" alt="Kroel Louli" className="clicker-mascot-img" />
+                  <img src={louLogo} alt="Kroel Louli" className="clicker-mascot-img" />
                   <span className="clicker-tap-hint">Tik mij! 🐱</span>
                 </button>
 
