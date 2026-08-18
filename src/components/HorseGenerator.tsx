@@ -65,7 +65,7 @@ export function HorseGenerator() {
     playSuccess();
     try {
       await navigator.clipboard.writeText(horseName);
-      setStatus("Naam gekopieerd naar klembord! ✨");
+      setStatus("Naam gekopieerd!");
     } catch {
       const textarea = document.createElement("textarea");
       textarea.value = horseName;
@@ -75,7 +75,7 @@ export function HorseGenerator() {
       textarea.select();
       const ok = document.execCommand("copy");
       document.body.removeChild(textarea);
-      setStatus(ok ? "Naam gekopieerd naar klembord! ✨" : "Kopiëren lukte niet. Selecteer handmatig.");
+      setStatus(ok ? "Naam gekopieerd!" : "Kopiëren lukte niet. Selecteer handmatig.");
     }
   }
 
@@ -88,7 +88,7 @@ export function HorseGenerator() {
       safeSetLocalStorage(SAVED_HORSES_KEY, JSON.stringify(next));
       if (!isAlreadySaved) {
         playSuccess();
-        setStatus("Peirt opgeslagen in je stal! 🐴");
+        setStatus("Peirt opgeslagen in je stal.");
       } else {
         playPop();
         setStatus("Peirt verwijderd uit je stal.");
@@ -136,10 +136,10 @@ export function HorseGenerator() {
 
       <div className="controls">
         <button className="primary-action" type="button" onClick={() => generateHorse(true)}>
-          Genereer nieuw peirt 🐴
+          Genereer nieuw peirt
         </button>
         <button className="secondary-action" type="button" onClick={copyCurrentName}>
-          Kopieer naam 📋
+          Kopieer naam
         </button>
         <button
           className="secondary-action"
@@ -156,11 +156,11 @@ export function HorseGenerator() {
 
       {savedHorses.length > 0 && (
         <div className="history-wrap">
-          <p className="history-label">Jouw favoriete stal 🌟</p>
+          <p className="history-label">Jouw favoriete stal</p>
           <ul className="history-list" aria-label="Opgeslagen paarden">
             {savedHorses.map((name) => (
               <li key={name}>
-                <span>🐴 {name}</span>
+                <span>{name}</span>
                 <button
                   type="button"
                   className="unpin-btn"

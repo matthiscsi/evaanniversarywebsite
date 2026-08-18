@@ -17,17 +17,17 @@ const initialWishes: WishItem[] = [
   {
     id: "wish-2",
     title: "Lego set om samen te bouwen",
-    note: "Botanical flowers ofzo 🌸",
+    note: "Botanical flowers ofzo",
     priority: "nice",
     done: false,
     createdAt: Date.now() - 50000
   }
 ];
 
-const priorityLabels: Record<string, { label: string; emoji: string; colorClass: string }> = {
-  must: { label: "Heel graag!", emoji: "💖", colorClass: "badge-must" },
-  nice: { label: "Leuk ideetje", emoji: "✨", colorClass: "badge-nice" },
-  dream: { label: "Droomcadeau", emoji: "🌟", colorClass: "badge-dream" }
+const priorityLabels: Record<string, { label: string; colorClass: string }> = {
+  must: { label: "Heel graag", colorClass: "badge-must" },
+  nice: { label: "Leuk ideetje", colorClass: "badge-nice" },
+  dream: { label: "Droomcadeau", colorClass: "badge-dream" }
 };
 
 export function Wishlist() {
@@ -120,7 +120,7 @@ export function Wishlist() {
 
       {/* Add Wish Form */}
       <div className="wish-form-card">
-        <h2>Nieuw cadeautje toevoegen 🛍️</h2>
+        <h2>Nieuw cadeautje toevoegen</h2>
         <form onSubmit={handleAddWish} className="wish-form">
           <div className="form-group">
             <label htmlFor="wish-title">Wat wil je graag?</label>
@@ -162,7 +162,7 @@ export function Wishlist() {
                       setPriority(pKey);
                     }}
                   >
-                    {info.emoji} {info.label}
+                    {info.label}
                   </button>
                 );
               })}
@@ -170,7 +170,7 @@ export function Wishlist() {
           </div>
 
           <button type="submit" className="primary-action wish-submit-btn">
-            Zet op verlanglijstje ✨
+            Zet op verlanglijstje
           </button>
         </form>
       </div>
@@ -221,16 +221,16 @@ export function Wishlist() {
                 <div className="wish-card-main">
                   <div className="wish-card-header">
                     <span className={`wish-badge ${pInfo.colorClass}`}>
-                      {pInfo.emoji} {pInfo.label}
+                      {pInfo.label}
                     </span>
-                    {item.done && <span className="wish-done-badge">Gekregen! 🎁</span>}
+                    {item.done && <span className="wish-done-badge">Gekregen</span>}
                   </div>
                   <h3 className="wish-card-title">{item.title}</h3>
                   {item.note && (
                     <p className="wish-card-note">
                       {item.note.startsWith("http") ? (
                         <a href={item.note} target="_blank" rel="noopener noreferrer" className="wish-link">
-                          Bekijk link 🔗
+                          Bekijk link
                         </a>
                       ) : (
                         item.note
@@ -245,7 +245,7 @@ export function Wishlist() {
                     className={item.done ? "secondary-action wish-check-btn is-done" : "secondary-action wish-check-btn"}
                     onClick={() => toggleDone(item.id)}
                   >
-                    {item.done ? "✓ Gekregen" : "🎁 Markeer gekregen"}
+                    {item.done ? "✓ Gekregen" : "Markeer gekregen"}
                   </button>
                   <button
                     type="button"
@@ -262,7 +262,7 @@ export function Wishlist() {
           })
         ) : (
           <div className="wish-empty">
-            <p>Nog geen cadeautjes in deze categorie. Voeg er eentje toe hierboven! ✨</p>
+            <p>Nog geen cadeautjes in deze categorie. Voeg er eentje toe hierboven.</p>
           </div>
         )}
       </div>

@@ -43,7 +43,7 @@ export const navItems: Array<{ page: Page; label: string }> = [
   { page: "food", label: "wtf gaan wij eten" },
   { page: "love", label: "Love hub" },
   { page: "bucketlist", label: "Bucketlist" },
-  { page: "wishlist", label: "Wishlist 🎁" }
+  { page: "wishlist", label: "Wishlist" }
 ];
 
 export const initialBucketlist: BucketItem[] = [

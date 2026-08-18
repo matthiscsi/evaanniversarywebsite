@@ -28,13 +28,13 @@ export function Home({ onNavigate }: HomeProps) {
 
           <div className="hero-actions">
             <button className="primary-action" type="button" onClick={() => handleNav("love")}>
-              Naar Love hub ❤️
+              Naar Love hub
             </button>
             <button className="secondary-action" type="button" onClick={() => handleNav("food")}>
-              wtf gaan wij eten 🍟
+              wtf gaan wij eten
             </button>
             <button className="secondary-action" type="button" onClick={() => handleNav("photos")}>
-              Lou gen 🐾
+              Lou gen
             </button>
           </div>
           <div className="hero-badges" aria-label="Sfeertje">

@@ -115,7 +115,7 @@ export function PhotoGenerator() {
         </p>
         <div className="controls photo-controls">
           <button className="primary-action" type="button" onClick={showRandomPhoto}>
-            Nieuwe random foto 🐾
+            Nieuwe random foto
           </button>
           <button
             className="secondary-action"

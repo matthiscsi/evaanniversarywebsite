@@ -37,7 +37,7 @@ export function PinLockScreen({ onUnlock }: PinLockScreenProps) {
         onUnlock();
       } else {
         setIsError(true);
-        setErrorMessage("Nope, foute code bab! Probeer opnieuw 🐒");
+        setErrorMessage("Nope, foute code bab! Probeer opnieuw.");
         const timer = setTimeout(() => {
           setPin("");
           setIsError(false);

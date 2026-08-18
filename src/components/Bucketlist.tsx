@@ -5,12 +5,12 @@ import { safeGetLocalStorage, safeSetLocalStorage } from "../lib/storage";
 
 const BUCKETLIST_STORAGE_KEY = "aap.bucketlist.v1";
 
-const categoryLabels: Record<string, { label: string; emoji: string }> = {
-  movies: { label: "Films & Series", emoji: "🎬" },
-  food: { label: "Eten & Drinken", emoji: "🧋" },
-  trips: { label: "Uitstapjes", emoji: "🌍" },
-  fun: { label: "Fun & Chaos", emoji: "🤪" },
-  cozy: { label: "Cozy & Lief", emoji: "🧸" }
+const categoryLabels: Record<string, string> = {
+  movies: "Films & Series",
+  food: "Eten & Drinken",
+  trips: "Uitstapjes",
+  fun: "Fun & Chaos",
+  cozy: "Cozy & Lief"
 };
 
 export function Bucketlist() {
@@ -117,8 +117,8 @@ export function Bucketlist() {
           </div>
           <p className="progress-caption">
             {completedCount > 0
-              ? `Al ${completedCount} prachtige momenten en herinneringen afgevinkt 💕`
-              : "Tijd om samen herinneringen te maken! ✨"}
+              ? `Al ${completedCount} momenten en herinneringen afgevinkt`
+              : "Tijd om herinneringen te maken!"}
           </p>
         </div>
       </div>
@@ -138,14 +138,14 @@ export function Bucketlist() {
           onChange={(e) => setNewItemCat(e.target.value as BucketItem["category"])}
           aria-label="Kies categorie"
         >
-          <option value="fun">🤪 Fun & Chaos</option>
-          <option value="trips">🌍 Uitstapjes</option>
-          <option value="food">🧋 Eten & Drinken</option>
-          <option value="movies">🎬 Films & Series</option>
-          <option value="cozy">🧸 Cozy & Lief</option>
+          <option value="fun">Fun & Chaos</option>
+          <option value="trips">Uitstapjes</option>
+          <option value="food">Eten & Drinken</option>
+          <option value="movies">Films & Series</option>
+          <option value="cozy">Cozy & Lief</option>
         </select>
         <button type="submit" className="primary-action">
-          Toevoegen ➕
+          Toevoegen
         </button>
       </form>
 
@@ -208,7 +208,7 @@ export function Bucketlist() {
         >
           Alle thema's
         </button>
-        {Object.entries(categoryLabels).map(([catKey, { label, emoji }]) => (
+        {Object.entries(categoryLabels).map(([catKey, label]) => (
           <button
             key={catKey}
             type="button"
@@ -218,7 +218,7 @@ export function Bucketlist() {
               setSelectedCategory(catKey);
             }}
           >
-            {emoji} {label}
+            {label}
           </button>
         ))}
       </div>
@@ -249,7 +249,7 @@ export function Bucketlist() {
                   <span className="bucket-item-text">{item.text}</span>
                   {catInfo && (
                     <span className="bucket-item-cat">
-                      {catInfo.emoji} {catInfo.label}
+                      {catInfo}
                     </span>
                   )}
                 </div>

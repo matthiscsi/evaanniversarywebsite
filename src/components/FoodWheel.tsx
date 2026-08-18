@@ -76,7 +76,7 @@ export function FoodWheel() {
             onClick={spinWheel}
             disabled={isSpinning}
           >
-            {isSpinning ? "Aan het draaien... 🌀" : "Draai da rad!"}
+            {isSpinning ? "Aan het draaien..." : "Draai da rad!"}
           </button>
         </div>
 

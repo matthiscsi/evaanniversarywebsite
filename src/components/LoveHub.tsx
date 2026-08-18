@@ -63,7 +63,7 @@ export function LoveHub() {
     }
     playSuccess();
     setPinned(next);
-    setPinStatus("Gepind! ✨");
+    setPinStatus("Gepind!");
     window.setTimeout(() => setPinStatus("Pin deze"), 1400);
   }
 
@@ -86,7 +86,7 @@ export function LoveHub() {
     playSuccess();
     try {
       await navigator.clipboard.writeText(text);
-      setCopyStatus("Gekopieerd! ✨");
+      setCopyStatus("Gekopieerd!");
       window.setTimeout(() => setCopyStatus(""), 1500);
     } catch {}
   }
@@ -127,7 +127,7 @@ export function LoveHub() {
               aria-pressed={hugMode}
               onClick={toggleHugMode}
             >
-              {hugMode ? "Knuffelmodus aan 🫂" : "Knuffelmodus 🫂"}
+              {hugMode ? "Knuffelmodus aan" : "Knuffelmodus"}
             </button>
             <button
               className="secondary-action"
@@ -137,7 +137,7 @@ export function LoveHub() {
                 refreshMoodContent(mood);
               }}
             >
-              Quick comfort ✨
+              Quick comfort
             </button>
           </div>
         </div>
@@ -151,7 +151,7 @@ export function LoveHub() {
           <p>{hugAction}</p>
           <div className="controls">
             <button className="primary-action" type="button" onClick={refreshHugSupport}>
-              Nog een knuffelzin 🫂
+              Nog een knuffelzin
             </button>
             <button
               className="secondary-action"
@@ -179,13 +179,13 @@ export function LoveHub() {
                 setAffirmation((previous) => pickRandom(currentPack.affirmations, previous));
               }}
             >
-              Nieuwe zin ✨
+              Nieuwe zin
             </button>
             <button className="secondary-action" type="button" onClick={pinCurrentAffirmation}>
               {pinStatus}
             </button>
             <button className="secondary-action" type="button" onClick={() => copyText(affirmation)}>
-              {copyStatus || "Kopieer 📋"}
+              {copyStatus || "Kopieer"}
             </button>
           </div>
         </HubCard>
@@ -200,7 +200,7 @@ export function LoveHub() {
               setReason((previous) => pickRandom(currentPack.reasons, previous));
             }}
           >
-            Nog eentje ❤️
+            Nog eentje
           </button>
         </HubCard>
 
@@ -223,7 +223,7 @@ export function LoveHub() {
               setTinyJoy((previous) => pickRandom(currentPack.tinyJoy, previous));
             }}
           >
-            Nog iets liefs 🌸
+            Nog iets liefs
           </button>
         </HubCard>
 
