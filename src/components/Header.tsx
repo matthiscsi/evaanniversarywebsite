@@ -25,9 +25,7 @@ export function Header({ activePage, onNavigate, onLock }: HeaderProps) {
   return (
     <header className="site-header">
       <button className="brand-button" type="button" onClick={() => handleNav("home")}>
-        <span className="brand-mark" aria-hidden="true">
-          S
-        </span>
+        <img className="brand-mark" src="/lou-logo.png" alt="Louli" width="44" height="44" />
         <span>
           <span className="brand-name">Silly aap site</span>
           <span className="brand-subtitle">officiele aap site 2026</span>
