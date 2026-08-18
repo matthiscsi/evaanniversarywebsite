@@ -63,7 +63,7 @@ export function FoodWheel() {
 
       <div className="tool-intro">
         <h1 id="food-title">
-          wtf gaan wij eten <span className="heart">{"\u2665"}</span>
+          WTF gaan wij eten <span className="heart">{"\u2665"}</span>
         </h1>
         <p className="lead">
           Frietjes, piesta of pokebowl.

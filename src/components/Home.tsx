@@ -31,7 +31,7 @@ export function Home({ onNavigate }: HomeProps) {
               Naar Love hub
             </button>
             <button className="secondary-action" type="button" onClick={() => handleNav("food")}>
-              wtf gaan wij eten
+              WTF gaan wij eten
             </button>
             <button className="secondary-action" type="button" onClick={() => handleNav("photos")}>
               Lou gen
@@ -81,7 +81,7 @@ export function Home({ onNavigate }: HomeProps) {
         />
         <FeatureCard
           kicker="keuzestress solver"
-          title="wtf gaan wij eten"
+          title="WTF gaan wij eten"
           text="Draai het rad en laat het lot kiezen: frietjes, piesta of pokebowl."
           action="Draai rad"
           onClick={() => handleNav("food")}

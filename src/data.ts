@@ -40,7 +40,7 @@ export const navItems: Array<{ page: Page; label: string }> = [
   { page: "home", label: "Home" },
   { page: "photos", label: "Lou generator" },
   { page: "horse", label: "Peirt generator" },
-  { page: "food", label: "wtf gaan wij eten" },
+  { page: "food", label: "WTF gaan wij eten" },
   { page: "love", label: "Love hub" },
   { page: "bucketlist", label: "Bucketlist" },
   { page: "wishlist", label: "Wishlist" }

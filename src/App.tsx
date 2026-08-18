@@ -18,7 +18,7 @@ const pageTitles: Record<Page, string> = {
   home: "Silly aap site",
   photos: "Lou generator",
   horse: "Peirt generator",
-  food: "wtf gaan wij eten",
+  food: "WTF gaan wij eten",
   love: "Love hub",
   bucketlist: "Onze bucketlist",
   wishlist: "Eva's wishlist"
