@@ -51,12 +51,12 @@ export function InstallModal({ isOpen, onClose }: InstallModalProps) {
             <img src={louLogo} alt="Aap site logo" className="install-app-icon" />
             <div className="install-app-meta">
               <span className="install-app-title">Aap site</span>
-              <span className="install-app-subtitle">Silly app voor Eva</span>
+              <span className="install-app-subtitle">Official Louli App</span>
             </div>
           </div>
-          <h2>Zet als échte app op je iPhone 📱</h2>
+          <h2>Installeer die handel op je iPhone 📱</h2>
           <p className="install-lead">
-            Je kunt deze site rechtstreeks op je beginscherm zetten. Hij opent dan full-screen zonder Safari balken, net zoals een échte app!
+            Zodat ge nie elke keer Safari moet openen lijk een holbewoner. Ge krijgt een echt Louli icoontje op uw beginscherm en zero browserbalken!
           </p>
         </div>
 
@@ -65,7 +65,7 @@ export function InstallModal({ isOpen, onClose }: InstallModalProps) {
             <div className="install-step-badge">1</div>
             <div className="install-step-content">
               <strong>Open in Safari</strong>
-              <span>Zorg dat je de link in de <strong>Safari browser</strong> opent (niet binnen Instagram of WhatsApp).</span>
+              <span>Zit ge in WhatsApp of Instagram? Klik direct weg en open deze link in de <strong>echte Safari app</strong>, anders gaat Steve Jobs huilen.</span>
             </div>
             <span className="install-step-icon">🧭</span>
           </div>
@@ -73,8 +73,8 @@ export function InstallModal({ isOpen, onClose }: InstallModalProps) {
           <div className="install-step-card">
             <div className="install-step-badge">2</div>
             <div className="install-step-content">
-              <strong>Tik op het Deel-icoontje</strong>
-              <span>Tik onderaan in het midden op de Deel-knop (het vierkantje met het pijltje omhoog <span className="share-icon-glyph">⎋</span>).</span>
+              <strong>Tik op de Deelknop</strong>
+              <span>Tik onderaan op dat vierkantje met de pijl omhoog (<span className="share-icon-glyph">⎋</span>). Alsof ge het naar iemand gaat sturen, maar ge stuurt het naar uzelf.</span>
             </div>
             <span className="install-step-icon">📤</span>
           </div>
@@ -83,7 +83,7 @@ export function InstallModal({ isOpen, onClose }: InstallModalProps) {
             <div className="install-step-badge">3</div>
             <div className="install-step-content">
               <strong>Kies &quot;Zet op beginscherm&quot;</strong>
-              <span>Scroll een klein stukje naar beneden in het menu en tik op <strong>&quot;Zet op beginscherm&quot;</strong> (Add to Home Screen).</span>
+              <span>Scroll een klein stukje naar beneden en tik op <strong>&quot;Zet op beginscherm&quot;</strong> (of <em>Add to Home Screen</em>). Druk daarop met uw vingerke.</span>
             </div>
             <span className="install-step-icon">➕</span>
           </div>
@@ -92,7 +92,7 @@ export function InstallModal({ isOpen, onClose }: InstallModalProps) {
             <div className="install-step-badge">4</div>
             <div className="install-step-content">
               <strong>Tik op &quot;Voeg toe&quot;</strong>
-              <span>Tik rechtsboven op <strong>&quot;Voeg toe&quot;</strong>. Klaar! Het Louli icoontje staat nu tussen al je apps.</span>
+              <span>Rechtsboven op <strong>&quot;Voeg toe&quot;</strong> rammen. Boem, Louli staat nu te blinken tussen al uw apps!</span>
             </div>
             <span className="install-step-icon">✨</span>
           </div>
@@ -107,7 +107,7 @@ export function InstallModal({ isOpen, onClose }: InstallModalProps) {
               onClose();
             }}
           >
-            Begrepen! 💕
+            Oka ratje 💕
           </button>
         </div>
       </div>
