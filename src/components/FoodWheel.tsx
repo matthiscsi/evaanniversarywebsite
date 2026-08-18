@@ -9,7 +9,6 @@ export function FoodWheel() {
   const [rotation, setRotation] = useState(0);
   const [winner, setWinner] = useState<FoodOption | null>(null);
   const [hypeMessage, setHypeMessage] = useState<string>("");
-  const [history, setHistory] = useState<Array<{ name: string; emoji: string; time: string }>>([]);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   const spinWheel = useCallback(() => {
@@ -55,10 +54,6 @@ export function FoodWheel() {
       setHypeMessage(pickRandom(chosenFood.hype));
       playSuccess();
       triggerConfetti(canvasRef.current);
-
-      const now = new Date();
-      const timeStr = `${now.getHours().toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}`;
-      setHistory((prev) => [{ name: chosenFood.name, emoji: chosenFood.emoji, time: timeStr }, ...prev.slice(0, 5)]);
     }, 3600);
   }, [isSpinning, rotation]);
 
@@ -67,13 +62,11 @@ export function FoodWheel() {
       <ConfettiCanvas canvasRef={canvasRef} />
 
       <div className="tool-intro">
-        <p className="eyebrow">geen keuzestress meer</p>
         <h1 id="food-title">
           wtf gaan wij eten <span className="heart">{"\u2665"}</span>
         </h1>
         <p className="lead">
-          Het rad der waarheid. Geen uren twijfelen in de zetel: één klik en het lot beslist
-          tussen onze heilige drievuldigheid.
+          Frietjes, piesta of pokebowl.
         </p>
 
         <div className="controls">
@@ -95,20 +88,6 @@ export function FoodWheel() {
               <h2 className="winner-title">{winner.name}!</h2>
               <p className="winner-hype">{hypeMessage}</p>
             </div>
-          </div>
-        )}
-
-        {history.length > 0 && (
-          <div className="history-wrap">
-            <p className="history-label">Recente beslissingen</p>
-            <ul className="history-list" aria-label="Vorige rad uitslagen">
-              {history.map((item, idx) => (
-                <li key={idx}>
-                  <span>{item.emoji} <strong>{item.name}</strong></span>
-                  <span className="history-time">om {item.time}</span>
-                </li>
-              ))}
-            </ul>
           </div>
         )}
       </div>

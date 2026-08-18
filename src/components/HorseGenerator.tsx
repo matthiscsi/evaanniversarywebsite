@@ -106,7 +106,7 @@ export function HorseGenerator() {
         <h1 id="horse-title">
           dinkelpeirt generator <span className="heart">{"\u2665"}</span>
         </h1>
-        <p className="lead">wooooo. Genereer een paardjesnaam die 100% onmogelijk serieus te nemen is.</p>
+        <p className="lead">woooo</p>
       </div>
 
       <div className="name-reveal" aria-live="polite">
