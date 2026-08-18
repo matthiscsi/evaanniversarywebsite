@@ -11,7 +11,7 @@ export function PhotoGenerator() {
   const [brokenPhotoIds, setBrokenPhotoIds] = useState<string[]>([]);
   const [history, setHistory] = useState<PhotoItem[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
-  const [status, setStatus] = useState("Klaar voor een nieuw Lou momentje.");
+  const [status, setStatus] = useState("Lou gereed.");
   const [favoritePhotoId, setFavoritePhotoId] = useState(() => safeGetLocalStorage(FAVORITE_PHOTO_KEY));
   const [heartBurst, setHeartBurst] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
@@ -35,7 +35,7 @@ export function PhotoGenerator() {
     playPop();
     setHistory((current) => [...current.slice(0, historyIndex + 1), next]);
     setHistoryIndex((current) => current + 1);
-    setStatus("Nieuw Lou momentje klaar.");
+    setStatus("Lou gereed.");
   }, [availablePhotos, currentPhoto, historyIndex]);
 
   useEffect(() => {
