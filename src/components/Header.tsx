@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { navItems, type Page } from "../data";
 import { isSoundEnabled, playPop, toggleSound } from "../lib/sound";
+import { applyTheme, getInitialTheme, type Theme } from "../lib/theme";
 
 interface HeaderProps {
   activePage: Page;
@@ -10,6 +11,11 @@ interface HeaderProps {
 
 export function Header({ activePage, onNavigate, onLock }: HeaderProps) {
   const [soundOn, setSoundOn] = useState(() => isSoundEnabled());
+  const [theme, setTheme] = useState<Theme>(() => getInitialTheme());
+
+  useEffect(() => {
+    applyTheme(theme);
+  }, [theme]);
 
   const handleNav = (page: Page) => {
     playPop();
@@ -20,6 +26,13 @@ export function Header({ activePage, onNavigate, onLock }: HeaderProps) {
     const next = toggleSound();
     setSoundOn(next);
     if (next) playPop();
+  };
+
+  const handleToggleTheme = () => {
+    playPop();
+    const next: Theme = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    applyTheme(next);
   };
 
   return (
@@ -44,6 +57,16 @@ export function Header({ activePage, onNavigate, onLock }: HeaderProps) {
             {item.label}
           </button>
         ))}
+
+        <button
+          className="nav-chip icon-chip"
+          type="button"
+          title={theme === "dark" ? "Lichte modus" : "Nachtmodus"}
+          aria-label={theme === "dark" ? "Lichte modus" : "Nachtmodus"}
+          onClick={handleToggleTheme}
+        >
+          {theme === "dark" ? "🌙" : "☀️"}
+        </button>
 
         <button
           className="nav-chip icon-chip"

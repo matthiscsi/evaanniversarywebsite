@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { type Page } from "./data";
 import { hashFromPage, pageFromHash } from "./lib/routing";
 import { safeGetLocalStorage, safeSetLocalStorage } from "./lib/storage";
+import { applyTheme, getInitialTheme } from "./lib/theme";
 import { Header } from "./components/Header";
 import { Home } from "./components/Home";
 import { PhotoGenerator } from "./components/PhotoGenerator";
@@ -31,6 +32,10 @@ function goTo(page: Page) {
 export function App() {
   const [isUnlocked, setIsUnlocked] = useState(() => safeGetLocalStorage(UNLOCKED_STORAGE_KEY) === "true");
   const [page, setPage] = useState<Page>(() => pageFromHash(window.location.hash));
+
+  useEffect(() => {
+    applyTheme(getInitialTheme());
+  }, []);
 
   useEffect(() => {
     const syncPage = () => setPage(pageFromHash(window.location.hash));

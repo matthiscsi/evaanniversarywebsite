@@ -3,6 +3,7 @@ import { safeGetLocalStorage, safeSetLocalStorage } from "../lib/storage";
 import { pickRandom } from "../lib/random";
 import { playPop, playSuccess } from "../lib/sound";
 import { photos, type PhotoItem } from "../photos";
+import { LouliClicker } from "./LouliClicker";
 
 const FAVORITE_PHOTO_KEY = "lou.favorite.v1";
 
@@ -104,106 +105,110 @@ export function PhotoGenerator() {
   }
 
   return (
-    <section className="tool-layout page-enter" aria-labelledby="lou-title">
-      <div className="tool-intro">
-        <h1 id="lou-title">
-          Louli generator <span className="heart">{"\u2665"}</span>
-        </h1>
-        <p className="lead">
-          Druk op de knop, spatie of tik op de foto voor een nieuw momentje van onze allerliefste baby.
-        </p>
-        <div className="controls photo-controls">
-          <button className="primary-action" type="button" onClick={showRandomPhoto}>
-            Nieuwe random foto
-          </button>
-          <button
-            className="secondary-action"
-            type="button"
-            onClick={() => {
-              playPop();
-              setHistoryIndex((v) => Math.max(0, v - 1));
-            }}
-            disabled={historyIndex <= 0}
-            title="Vorige foto (Pijltje links)"
-          >
-            ← Vorige
-          </button>
-          <button
-            className="secondary-action"
-            type="button"
-            onClick={() => {
-              playPop();
-              setHistoryIndex((v) => Math.min(history.length - 1, v + 1));
-            }}
-            disabled={historyIndex >= history.length - 1}
-            title="Volgende foto (Pijltje rechts)"
-          >
-            Volgende →
-          </button>
-          <button
-            className="secondary-action"
-            type="button"
-            onClick={toggleFavorite}
-            disabled={!currentPhoto}
-          >
-            {currentPhoto && favoritePhotoId === currentPhoto.id ? "★ Favoriet vast" : "☆ Pin favoriet"}
-          </button>
-        </div>
-        <p className="status" aria-live="polite">
-          {status}
-        </p>
-      </div>
-
-      <figure className="photo-stage" onClick={handlePhotoTap} role="button" tabIndex={0} aria-label="Tik voor liefde">
-        {heartBurst && <span className="heart-burst" aria-hidden="true">❤️</span>}
-
-        {currentPhoto ? (
-          <>
-            <img
-              src={currentPhoto.src}
-              alt={currentPhoto.caption}
-              loading="lazy"
-              decoding="async"
-              onError={() => markPhotoBroken(currentPhoto)}
-            />
-            <figcaption>
-              {favoritePhotoId === currentPhoto.id ? "★ " : ""}
-              {currentPhoto.caption}
-              <button
-                type="button"
-                className="zoom-hint-btn"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setIsLightboxOpen(true);
-                }}
-                aria-label="Vergroot foto"
-                title="Vergroot foto"
-              >
-                🔍
-              </button>
-            </figcaption>
-          </>
-        ) : (
-          <figcaption>Geen foto's gevonden in /photos.</figcaption>
-        )}
-      </figure>
-
-      {/* Lightbox Modal */}
-      {isLightboxOpen && currentPhoto && (
-        <div className="lightbox-overlay" onClick={() => setIsLightboxOpen(false)}>
-          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
-            <img src={currentPhoto.src} alt={currentPhoto.caption} />
+    <div className="photo-page-wrapper page-enter">
+      <section className="tool-layout" aria-labelledby="lou-title">
+        <div className="tool-intro">
+          <h1 id="lou-title">
+            Louli generator <span className="heart">{"\u2665"}</span>
+          </h1>
+          <p className="lead">
+            Druk op de knop, spatie of tik op de foto voor een nieuw momentje van onze allerliefste baby.
+          </p>
+          <div className="controls photo-controls">
+            <button className="primary-action" type="button" onClick={showRandomPhoto}>
+              Nieuwe random foto
+            </button>
             <button
+              className="secondary-action"
               type="button"
-              className="lightbox-close"
-              onClick={() => setIsLightboxOpen(false)}
-              aria-label="Sluit vergroting"
+              onClick={() => {
+                playPop();
+                setHistoryIndex((v) => Math.max(0, v - 1));
+              }}
+              disabled={historyIndex <= 0}
+              title="Vorige foto (Pijltje links)"
             >
-              ✕
+              ← Vorige
+            </button>
+            <button
+              className="secondary-action"
+              type="button"
+              onClick={() => {
+                playPop();
+                setHistoryIndex((v) => Math.min(history.length - 1, v + 1));
+              }}
+              disabled={historyIndex >= history.length - 1}
+              title="Volgende foto (Pijltje rechts)"
+            >
+              Volgende →
+            </button>
+            <button
+              className="secondary-action"
+              type="button"
+              onClick={toggleFavorite}
+              disabled={!currentPhoto}
+            >
+              {currentPhoto && favoritePhotoId === currentPhoto.id ? "★ Favoriet vast" : "☆ Pin favoriet"}
             </button>
           </div>
+          <p className="status" aria-live="polite">
+            {status}
+          </p>
         </div>
-      )}
-    </section>
+
+        <figure className="photo-stage" onClick={handlePhotoTap} role="button" tabIndex={0} aria-label="Tik voor liefde">
+          {heartBurst && <span className="heart-burst" aria-hidden="true">❤️</span>}
+
+          {currentPhoto ? (
+            <>
+              <img
+                src={currentPhoto.src}
+                alt={currentPhoto.caption}
+                loading="lazy"
+                decoding="async"
+                onError={() => markPhotoBroken(currentPhoto)}
+              />
+              <figcaption>
+                {favoritePhotoId === currentPhoto.id ? "★ " : ""}
+                {currentPhoto.caption}
+                <button
+                  type="button"
+                  className="zoom-hint-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsLightboxOpen(true);
+                  }}
+                  aria-label="Vergroot foto"
+                  title="Vergroot foto"
+                >
+                  🔍
+                </button>
+              </figcaption>
+            </>
+          ) : (
+            <figcaption>Geen foto's gevonden in /photos.</figcaption>
+          )}
+        </figure>
+
+        {/* Lightbox Modal */}
+        {isLightboxOpen && currentPhoto && (
+          <div className="lightbox-overlay" onClick={() => setIsLightboxOpen(false)}>
+            <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+              <img src={currentPhoto.src} alt={currentPhoto.caption} />
+              <button
+                type="button"
+                className="lightbox-close"
+                onClick={() => setIsLightboxOpen(false)}
+                aria-label="Sluit vergroting"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+        )}
+      </section>
+
+      <LouliClicker />
+    </div>
   );
 }
