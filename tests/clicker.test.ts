@@ -23,12 +23,12 @@ test("clicker: cost increases with count exponentially", () => {
 
 test("clicker: stats calculation with inventory upgrades", () => {
   const inventory = {
-    catnip: 2, // 2 * 1 kps = 2
-    tweezers: 3, // 3 * 2 kpt = +6 kpt
-    smoothie: 1 // 1 * 6 kps = +6 kps, 1 * 1 kpt = +1 kpt
+    catnip: 2, // 2 * 1 kps = 2 kps, 0 kpt
+    smoothie: 3, // 3 * 0 kps = 0 kps, 3 * 2 kpt = 6 kpt
+    feather: 1 // 1 * 6 kps = 6 kps, 1 * 1 kpt = 1 kpt
   };
 
   const stats = calculateStats(inventory);
-  assert.equal(stats.kps, 2 + 6); // 8 kps
+  assert.equal(stats.kps, 2 + 0 + 6); // 8 kps
   assert.equal(stats.kpt, 1 + 6 + 1); // 8 kpt
 });

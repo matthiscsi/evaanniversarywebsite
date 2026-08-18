@@ -21,54 +21,54 @@ export const UPGRADES: Upgrade[] = [
     description: "Louli begint zachtjes te spinnen (+1/sec)"
   },
   {
-    id: "tweezers",
-    name: "Hello Kitty pincet",
-    icon: "✨",
-    baseCost: 50,
-    costMultiplier: 1.18,
-    kpsBonus: 0,
-    kptBonus: 2,
-    description: "Precisie-kroelen voor de wenkbrauwtjes (+2/tap)"
-  },
-  {
     id: "smoothie",
     name: "Chiazaad smoothie",
     icon: "🥤",
-    baseCost: 150,
+    baseCost: 60,
+    costMultiplier: 1.18,
+    kpsBonus: 0,
+    kptBonus: 2,
+    description: "Energie boost voor extra kroelkracht (+2/tap)"
+  },
+  {
+    id: "feather",
+    name: "Speelgoed veertje",
+    icon: "🪶",
+    baseCost: 180,
     costMultiplier: 1.2,
     kpsBonus: 6,
     kptBonus: 1,
-    description: "Superfood energie boost (+6/sec, +1/tap)"
+    description: "Louli springt vrolijk rond (+6/sec, +1/tap)"
   },
   {
-    id: "blanket",
-    name: "Dekentje voor Matjas",
-    icon: "🛋️",
+    id: "scratch_post",
+    name: "Krabpaal",
+    icon: "🪵",
     baseCost: 500,
     costMultiplier: 1.22,
-    kpsBonus: 22,
+    kpsBonus: 20,
     kptBonus: 0,
-    description: "Samen ingeduffeld op de zetel (+22/sec)"
+    description: "Scherpe nageltjes en tevreden spinnen (+20/sec)"
   },
   {
-    id: "slippers",
-    name: "Gouden sloefjes",
-    icon: "🥿",
-    baseCost: 1500,
+    id: "cozy_bed",
+    name: "Zacht kattenmandje",
+    icon: "🛏️",
+    baseCost: 1400,
     costMultiplier: 1.25,
-    kpsBonus: 75,
-    kptBonus: 10,
-    description: "Warme voetjes = ultieme kroel power (+75/sec, +10/tap)"
+    kpsBonus: 60,
+    kptBonus: 5,
+    description: "Heerlijk diep dutje doen (+60/sec, +5/tap)"
   },
   {
-    id: "contrex",
-    name: "Contrex Overdrive",
-    icon: "💧",
-    baseCost: 5000,
-    costMultiplier: 1.3,
-    kpsBonus: 250,
-    kptBonus: 50,
-    description: "Maximale hydratatie turbo mode (+250/sec, +50/tap)"
+    id: "salmon_snack",
+    name: "Zalm traktatie",
+    icon: "🐟",
+    baseCost: 4000,
+    costMultiplier: 1.28,
+    kpsBonus: 160,
+    kptBonus: 25,
+    description: "De ultieme delicatesse voor Louli (+160/sec, +25/tap)"
   }
 ];
 
