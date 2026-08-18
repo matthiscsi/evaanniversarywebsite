@@ -12,6 +12,7 @@ import { LoveHub } from "./components/LoveHub";
 import { Bucketlist } from "./components/Bucketlist";
 import { Wishlist } from "./components/Wishlist";
 import { PinLockScreen } from "./components/PinLockScreen";
+import { InstallModal } from "./components/InstallModal";
 
 const UNLOCKED_STORAGE_KEY = "aap.unlocked.v1";
 
@@ -32,6 +33,7 @@ function goTo(page: Page) {
 export function App() {
   const [isUnlocked, setIsUnlocked] = useState(() => safeGetLocalStorage(UNLOCKED_STORAGE_KEY) === "true");
   const [page, setPage] = useState<Page>(() => pageFromHash(window.location.hash));
+  const [isInstallModalOpen, setIsInstallModalOpen] = useState(false);
 
   useEffect(() => {
     applyTheme(getInitialTheme());
@@ -73,9 +75,14 @@ export function App() {
 
   return (
     <div className="app-shell">
-      <Header activePage={page} onNavigate={goTo} onLock={handleLock} />
+      <Header
+        activePage={page}
+        onNavigate={goTo}
+        onLock={handleLock}
+        onOpenInstall={() => setIsInstallModalOpen(true)}
+      />
       <main id="main-content">
-        {page === "home" && <Home onNavigate={goTo} />}
+        {page === "home" && <Home onNavigate={goTo} onOpenInstall={() => setIsInstallModalOpen(true)} />}
         {page === "photos" && <PhotoGenerator />}
         {page === "horse" && <HorseGenerator />}
         {page === "food" && <FoodWheel />}
@@ -83,6 +90,11 @@ export function App() {
         {page === "bucketlist" && <Bucketlist />}
         {page === "wishlist" && <Wishlist />}
       </main>
+
+      <InstallModal
+        isOpen={isInstallModalOpen}
+        onClose={() => setIsInstallModalOpen(false)}
+      />
     </div>
   );
 }

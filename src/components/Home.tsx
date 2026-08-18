@@ -4,9 +4,10 @@ import { photos } from "../photos";
 
 interface HomeProps {
   onNavigate: (page: Page) => void;
+  onOpenInstall?: () => void;
 }
 
-export function Home({ onNavigate }: HomeProps) {
+export function Home({ onNavigate, onOpenInstall }: HomeProps) {
   const featuredPhotos = photos.slice(0, 4);
 
   const handleNav = (page: Page) => {
@@ -39,6 +40,18 @@ export function Home({ onNavigate }: HomeProps) {
           </div>
           <div className="hero-badges" aria-label="Sfeertje">
             <span className="hero-badge">100% Eva approved</span>
+            {onOpenInstall && (
+              <button
+                type="button"
+                className="hero-app-btn"
+                onClick={() => {
+                  playPop();
+                  onOpenInstall();
+                }}
+              >
+                📱 Zet als app op je iPhone
+              </button>
+            )}
           </div>
         </div>
 

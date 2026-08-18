@@ -8,6 +8,7 @@ interface HeaderProps {
   activePage: Page;
   onNavigate: (page: Page) => void;
   onLock?: () => void;
+  onOpenInstall?: () => void;
 }
 
 interface NavItem {
@@ -29,7 +30,7 @@ const LOVE_ITEMS: NavItem[] = [
   { page: "wishlist", label: "Eva's wishlist", icon: "🎁", desc: "Cadeautjes en wensjes" }
 ];
 
-export function Header({ activePage, onNavigate, onLock }: HeaderProps) {
+export function Header({ activePage, onNavigate, onLock, onOpenInstall }: HeaderProps) {
   const [soundOn, setSoundOn] = useState(() => isSoundEnabled());
   const [theme, setTheme] = useState<Theme>(() => getInitialTheme());
   const [openDropdown, setOpenDropdown] = useState<"generators" | "love" | null>(null);
@@ -180,6 +181,20 @@ export function Header({ activePage, onNavigate, onLock }: HeaderProps) {
 
         {/* Control cluster */}
         <div className="nav-controls-group">
+          <button
+            className="nav-chip icon-chip"
+            type="button"
+            title="Zet als app op je iPhone"
+            aria-label="Zet als app op je iPhone"
+            onClick={() => {
+              playPop();
+              setOpenDropdown(null);
+              onOpenInstall?.();
+            }}
+          >
+            📱
+          </button>
+
           <button
             className="nav-chip icon-chip"
             type="button"
