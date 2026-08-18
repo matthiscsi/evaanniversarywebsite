@@ -1,4 +1,4 @@
-export type Page = "home" | "photos" | "horse" | "love";
+export type Page = "home" | "photos" | "horse" | "food" | "love";
 export type Mood = "sad" | "boos" | "druk";
 
 export interface MoodPack {
@@ -10,11 +10,64 @@ export interface MoodPack {
   steps: string[];
 }
 
+export interface FoodOption {
+  id: "frietjes" | "piesta" | "pokebowl";
+  name: string;
+  emoji: string;
+  color: string;
+  textColor: string;
+  subtitle: string;
+  hype: string[];
+}
+
 export const navItems: Array<{ page: Page; label: string }> = [
   { page: "home", label: "Home" },
   { page: "photos", label: "Lou generator" },
   { page: "horse", label: "Peirt generator" },
+  { page: "food", label: "wtf gaan wij eten" },
   { page: "love", label: "Love hub" }
+];
+
+export const foodOptions: FoodOption[] = [
+  {
+    id: "frietjes",
+    name: "frietjes",
+    emoji: "🍟",
+    color: "#f6be74",
+    textColor: "#573611",
+    subtitle: "Goudgeel, vettig, 0 spijt",
+    hype: [
+      "Frietjes it is! Mayo erbij en niet zagen bb.",
+      "Het lot heeft gesproken: frietjes halen en lekker in de zetel kruipen.",
+      "Geen discussie meer mogelijk, frietkot time."
+    ]
+  },
+  {
+    id: "piesta",
+    name: "piesta",
+    emoji: "🍝",
+    color: "#e26482",
+    textColor: "#4f1624",
+    subtitle: "Comfort food deluxe",
+    hype: [
+      "Piesta baby! Lekker binnenspelen en saus overal.",
+      "Piesta gekozen! Dikke portie voor ons twee.",
+      "Piesta it is. Berg kaas erover en genieten bab."
+    ]
+  },
+  {
+    id: "pokebowl",
+    name: "pokebowl",
+    emoji: "🥗",
+    color: "#88b28f",
+    textColor: "#1d3d23",
+    subtitle: "Gezond doen & lekker fris",
+    hype: [
+      "Pokebowl it is! Doen alsof we gezonde mensen zijn vandaag.",
+      "Fresh & crunchy, pokebowl time!",
+      "Lekker fris kommeke en chillen maar bab."
+    ]
+  }
 ];
 
 export const moodPacks: Record<Mood, MoodPack> = {

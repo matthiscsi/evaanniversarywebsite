@@ -4,9 +4,11 @@ Een persoonlijk, zacht, grappig en romantisch React-siteke voor Eva.
 
 ## Wat zit erin
 
+- **PIN Beveiliging**: 4-cijferige pincode (`4679`) met virtueel numpad en shake-feedback voor privacy op publieke hosting
 - Lou foto generator met random, vorige/volgende en favoriet pin
 - Peirt naam generator met copy en kleine history
-- Love hub met mood-switching, affirmaties, pinned zinnen en ademrondje
+- **wtf gaan wij eten**: Draairad voor keuzestress met *frietjes*, *piesta* en *pokebowl* + confetti
+- Love hub met mood-switching, affirmaties, interactieve ademcirkel en pinned zinnen
 - Hash-routing (`#/...`) zodat refresh op subpagina's blijft werken op static hosting
 - Geen backend, geen tracking, geen ads
 
@@ -49,6 +51,7 @@ Deze site gebruikt hash routes:
 - `#/` home
 - `#/photos` Lou generator
 - `#/horse` Peirt generator
+- `#/food` wtf gaan wij eten
 - `#/love` Love hub
 
 Onbekende hashes vallen veilig terug op `#/`.
@@ -86,11 +89,18 @@ Als localStorage geblokkeerd/faalt, werkt de app verder zonder crash.
 
 Werkt met hash routing zonder server rewrites.
 
-Basis flow:
+Deze repo heeft een workflow op [`main`] die automatisch build + deploy doet naar Pages.
+
+Vereiste repo-instelling:
+
+1. GitHub repo -> `Settings` -> `Pages`
+2. `Source` op `GitHub Actions` zetten
+
+Deploy flow:
 
 1. `npm ci`
 2. `npm run build`
-3. Publish de `dist/` map
+3. Push naar `main` (workflow publiceert `dist/`)
 
 ### Netlify / Vercel / static hosts
 

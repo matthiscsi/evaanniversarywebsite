@@ -4,6 +4,7 @@ import { hashFromPage, pageFromHash } from "../src/lib/routing";
 
 test("pageFromHash handles valid and invalid hashes", () => {
   assert.equal(pageFromHash("#/photos"), "photos");
+  assert.equal(pageFromHash("#/food"), "food");
   assert.equal(pageFromHash("#love"), "love");
   assert.equal(pageFromHash("#/unknown"), "home");
   assert.equal(pageFromHash(""), "home");
@@ -12,4 +13,5 @@ test("pageFromHash handles valid and invalid hashes", () => {
 test("hashFromPage creates stable hashes", () => {
   assert.equal(hashFromPage("home"), "#/");
   assert.equal(hashFromPage("horse"), "#/horse");
+  assert.equal(hashFromPage("food"), "#/food");
 });

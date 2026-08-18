@@ -1,6 +1,6 @@
 import type { Page } from "../data";
 
-const PAGES: readonly Page[] = ["home", "photos", "horse", "love"];
+const PAGES: readonly Page[] = ["home", "photos", "horse", "food", "love"];
 const VALID = new Set(PAGES);
 
 export function pageFromHash(hash: string): Page {
