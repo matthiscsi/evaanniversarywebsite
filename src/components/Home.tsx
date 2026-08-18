@@ -7,8 +7,22 @@ interface HomeProps {
   onOpenInstall?: () => void;
 }
 
+const FEATURED_PHOTO_IDS = [
+  "img_6553.jpeg", // Close-up snoetje met roze pootjes & grote oogjes (voorgrond)
+  "img_7067.jpg",  // Zittend als een menske
+  "img_7284.jpg",  // Op haar rugje geaaid worden
+  "img_6275.jpeg"  // Slapende croissant Lou
+];
+
 export function Home({ onNavigate, onOpenInstall }: HomeProps) {
-  const featuredPhotos = photos.slice(0, 4);
+  const featuredPhotos = (() => {
+    const selected = FEATURED_PHOTO_IDS
+      .map((id) => photos.find((p) => p.id === id))
+      .filter((p): p is (typeof photos)[number] => Boolean(p));
+    if (selected.length === 4) return selected;
+    const fallback = photos.filter((p) => !p.id.includes("4be46dc7"));
+    return [...selected, ...fallback].slice(0, 4);
+  })();
 
   const handleNav = (page: Page) => {
     playPop();
