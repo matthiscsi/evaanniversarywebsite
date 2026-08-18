@@ -82,8 +82,8 @@ export function Home({ onNavigate }: HomeProps) {
         <FeatureCard
           kicker="keuzestress solver"
           title="wtf gaan wij eten"
-          text="Draai da rad en laat het lot kiezen: frietjes, piesta of pokebowl."
-          action="Draai da rad"
+          text="Draai het rad en laat het lot kiezen: frietjes, piesta of pokebowl."
+          action="Draai rad"
           onClick={() => handleNav("food")}
         />
         <FeatureCard
