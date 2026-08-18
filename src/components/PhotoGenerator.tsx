@@ -106,7 +106,6 @@ export function PhotoGenerator() {
   return (
     <section className="tool-layout page-enter" aria-labelledby="lou-title">
       <div className="tool-intro">
-        <p className="eyebrow">random cuteness</p>
         <h1 id="lou-title">
           Louli generator <span className="heart">{"\u2665"}</span>
         </h1>

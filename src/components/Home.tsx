@@ -87,7 +87,7 @@ export function Home({ onNavigate }: HomeProps) {
           onClick={() => handleNav("food")}
         />
         <FeatureCard
-          kicker="random cuteness"
+          kicker="fotootjes"
           title="Lou generator"
           text="Een foto surprise knop voor instant serotonine."
           action="Open foto's"
