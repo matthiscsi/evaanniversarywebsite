@@ -161,11 +161,12 @@ export const moodPacks: Record<Mood, MoodPack> = {
       "Als alles zwaar voelt, mag jij even rusten in mijn liefde."
     ],
     affirmations: [
-      "Je bent niet te veel. Je bent iemand die liefde verdient.",
-      "Ook op stille en moeilijke dagen ben jij prachtig voor mij bb.",
-      "Je waarde zakt niet omdat je energie vandaag laag is.",
-      "Je mag traag ademen, traag denken en traag voelen. Dat is nog steeds meer dan genoeg schatje.",
-      "Ik hoef geen vrolijke versie van jou om van jou te houden."
+      "Ge moogt gerust een zielig klein hoopje wezen vandaag bab, ik hou toch van u.",
+      "Niemand verwacht dat ge 24/7 vrolijk zijt. Sad wezen mag gewoon.",
+      "Ge zijt het allermooiste aapje, zelfs met wallen en nul energie.",
+      "Vandaag hoeft er niks gepresteerd te worden, rot gerust in bed als ge wilt.",
+      "Mijn liefde voor u vermindert met 0% ook al voelt alles 100% kut.",
+      "Ge zijt een certified cutie pie, vergeet dat niet schatje."
     ],
     reasons: [
       "Omdat jij zelfs gewone momenten zacht maakt.",
@@ -196,10 +197,12 @@ export const moodPacks: Record<Mood, MoodPack> = {
       "Je hoeft je gevoelens niet netjes te verpakken om liefde te verdienen."
     ],
     affirmations: [
-      "Jouw boosheid betekent niet dat jij verkeerd bent.",
-      "Je mag ruimte krijgen zonder je te verontschuldigen voor je gevoel.",
-      "Onder de frustratie ben jij nog steeds mijn favoriete mens ooit bb.",
-      "Ook als je angy bent, blijf jij iemand die liefde verdient schatje."
+      "Angy aapje is nog altijd een superschattig aapje (maar ik hou veilige afstand als ge wilt).",
+      "Ge moogt kwaad zijn, fack iedereen die u opjaagt eerlijk gezegd.",
+      "Gij hebt gelijk en de rest is dom, simpel.",
+      "Laat de frustratie er maar uit bb, ge hoeft u niet beleefd in te houden.",
+      "Zelfs als ge stoom uit uw oren blaast kies ik nog altijd 100% voor u.",
+      "Als iemand u ambeteert kom ik erachteraan bab."
     ],
     reasons: [
       "Omdat jij 1 van de weinige dingen bent dat echt voelt, en dat bewonder ik bb.",
@@ -227,11 +230,12 @@ export const moodPacks: Record<Mood, MoodPack> = {
       "Een cresi hoofd is geen falen, alleen een signaal dat je liefde nodig hebt."
     ],
     affirmations: [
-      "Je hoeft vandaag niet productief te zijn om waardevol te zijn bb.",
-      "Rust is geen luxe voor jou, het is ook liefde.",
-      "Je mag vertragen zonder achter te lopen in mijn ogen.",
-      "Je bent geen machine. Pauze nemen is goed bab.",
-      "Ook een vol hoofd verdient een zachte plek."
+      "Koptelefoon op, wereld uit, verstand op nul. Ge moet efkes helemaal niks bb.",
+      "100 tabbladen open in uw brein? Sluit er 99 en drink iets fris.",
+      "Ge zijt geen machine bab, 'fack de to-do list' is een geldig levensmotto vandaag.",
+      "Uw hoofd maakt te veel lawaai, tijd om alles te muten en naar het plafond te staren.",
+      "Rustig ademen bab, de wereld vergaat echt niet als ge nu gewoon stopt.",
+      "In uw dekenfortress raakt niemand aan u."
     ],
     reasons: [
       "Omdat jij zoveel voelt en toch blijft proberen.",

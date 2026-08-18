@@ -213,7 +213,7 @@ export function LoveHub() {
           <BreathingCircle />
         </HubCard>
 
-        <HubCard title="Mini glimlach">
+        <HubCard title="Mini smile :3">
           <p className="hub-text" aria-live="polite">{tinyJoy}</p>
           <button
             className="secondary-action inline-action"
