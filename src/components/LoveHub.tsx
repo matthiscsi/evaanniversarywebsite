@@ -106,36 +106,40 @@ export function LoveHub() {
           <p aria-live="polite">{comfort}</p>
         </div>
 
-        <div className="mood-controls" aria-label="Hoe voel je je vandaag?">
-          {(Object.keys(moodPacks) as Mood[]).map((moodKey) => (
+        <div className="mood-selection-bar" role="group" aria-label="Hoe voel je je vandaag?">
+          <div className="mood-pills">
+            {(Object.keys(moodPacks) as Mood[]).map((moodKey) => (
+              <button
+                key={moodKey}
+                className={moodKey === mood ? "mood-button is-active" : "mood-button"}
+                type="button"
+                aria-pressed={moodKey === mood}
+                onClick={() => selectMood(moodKey)}
+              >
+                {moodPacks[moodKey].label}
+              </button>
+            ))}
+          </div>
+          <div className="hub-quick-actions">
             <button
-              key={moodKey}
-              className={moodKey === mood ? "mood-button is-active" : "mood-button"}
+              className={hugMode ? "secondary-action is-active" : "secondary-action"}
               type="button"
-              aria-pressed={moodKey === mood}
-              onClick={() => selectMood(moodKey)}
+              aria-pressed={hugMode}
+              onClick={toggleHugMode}
             >
-              {moodPacks[moodKey].label}
+              {hugMode ? "Knuffelmodus aan 🫂" : "Knuffelmodus 🫂"}
             </button>
-          ))}
-          <button
-            className="secondary-action"
-            type="button"
-            aria-pressed={hugMode}
-            onClick={toggleHugMode}
-          >
-            {hugMode ? "Knuffelmodus aan 🫂" : "Knuffelmodus 🫂"}
-          </button>
-          <button
-            className="secondary-action"
-            type="button"
-            onClick={() => {
-              playPop();
-              refreshMoodContent(mood);
-            }}
-          >
-            Quick comfort ✨
-          </button>
+            <button
+              className="secondary-action"
+              type="button"
+              onClick={() => {
+                playPop();
+                refreshMoodContent(mood);
+              }}
+            >
+              Quick comfort ✨
+            </button>
+          </div>
         </div>
       </div>
 

@@ -34,7 +34,7 @@ export function Home({ onNavigate }: HomeProps) {
               wtf gaan wij eten 🍟
             </button>
             <button className="secondary-action" type="button" onClick={() => handleNav("photos")}>
-              Random Lou 🐾
+              Lou gen 🐾
             </button>
           </div>
           <div className="hero-badges" aria-label="Sfeertje">
