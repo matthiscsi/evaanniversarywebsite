@@ -23,8 +23,7 @@ export function Home({ onNavigate }: HomeProps) {
             Silly aap site<span className="heart">{"\u2665"}</span>
           </h1>
           <p className="lead">
-            Een zacht mini-hoekje voor random Lou fotos, ster stabel peirt namen, een eten rad
-            voor hongerige keuzestress en een Love hub voor minder leuke momenten.
+            Voor random Lou fotos, ster stabel peirt namen, het eten rad en de Love hub als je hoofd vol zit.
           </p>
 
           <div className="hero-actions">
@@ -38,11 +37,8 @@ export function Home({ onNavigate }: HomeProps) {
               Random Lou 🐾
             </button>
           </div>
-          <p className="soft-note">Geen stress-app. Gewoon een zacht hoekje voor jou, bb.</p>
           <div className="hero-badges" aria-label="Sfeertje">
             <span className="hero-badge">100% Eva approved</span>
-            <span className="hero-badge">geen corporate vibes</span>
-            <span className="hero-badge">veel liefde + chaos</span>
           </div>
         </div>
 
@@ -64,7 +60,7 @@ export function Home({ onNavigate }: HomeProps) {
         <FeatureCard
           kicker="random cuteness"
           title="Lou generator"
-          text="Een foto surprise knop voor instant zachte serotonine."
+          text="Een foto surprise knop voor instant serotonine."
           action="Open foto's"
           onClick={() => handleNav("photos")}
         />
@@ -83,7 +79,7 @@ export function Home({ onNavigate }: HomeProps) {
           onClick={() => handleNav("food")}
         />
         <FeatureCard
-          kicker="soft place"
+          kicker="love & knuffels"
           title="Love hub"
           text="Mood knopjes, reminders, knuffelmodus en een ademronde."
           action="Land hier"
