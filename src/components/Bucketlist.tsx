@@ -10,7 +10,7 @@ const categoryLabels: Record<string, string> = {
   food: "Eten & Drinken",
   trips: "Uitstapjes",
   fun: "Fun & Chaos",
-  cozy: "Cozy & Lief"
+  cozy: "Thuis & Chill"
 };
 
 export function Bucketlist() {
@@ -101,7 +101,7 @@ export function Bucketlist() {
           Onze bucketlist <span className="heart">{"\u2665"}</span>
         </h1>
         <p className="lead">
-          Alles wat we al samen hebben beleefd en alle leuke dingen die nog gaan komen.
+          alles wa wij hebbe gedaan en de chresi dingen die nog komen 😈
         </p>
 
         {/* Progress Card */}
@@ -142,7 +142,7 @@ export function Bucketlist() {
           <option value="trips">Uitstapjes</option>
           <option value="food">Eten & Drinken</option>
           <option value="movies">Films & Series</option>
-          <option value="cozy">Cozy & Lief</option>
+          <option value="cozy">Thuis & Chill</option>
         </select>
         <button type="submit" className="primary-action">
           Toevoegen

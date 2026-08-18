@@ -58,9 +58,9 @@ export function Home({ onNavigate }: HomeProps) {
 
       <div className="feature-grid">
         <FeatureCard
-          kicker="avonturen & herinneringen"
-          title="Onze bucketlist"
-          text="60 leuke dingen die we al samen gedaan hebben of nog gaan doen."
+          kicker="avonturen & memories"
+          title="Bucketlist"
+          text="Alles wa wij hebbe gedaan en de chresi dingen die nog komen."
           action="Bekijk bucketlist"
           onClick={() => handleNav("bucketlist")}
           highlighted
