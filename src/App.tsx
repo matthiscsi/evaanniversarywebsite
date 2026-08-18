@@ -8,6 +8,8 @@ import { PhotoGenerator } from "./components/PhotoGenerator";
 import { HorseGenerator } from "./components/HorseGenerator";
 import { FoodWheel } from "./components/FoodWheel";
 import { LoveHub } from "./components/LoveHub";
+import { Bucketlist } from "./components/Bucketlist";
+import { Wishlist } from "./components/Wishlist";
 import { PinLockScreen } from "./components/PinLockScreen";
 
 const UNLOCKED_STORAGE_KEY = "aap.unlocked.v1";
@@ -17,7 +19,9 @@ const pageTitles: Record<Page, string> = {
   photos: "Lou generator",
   horse: "Peirt generator",
   food: "wtf gaan wij eten",
-  love: "Love hub"
+  love: "Love hub",
+  bucketlist: "Onze bucketlist",
+  wishlist: "Eva's wishlist"
 };
 
 function goTo(page: Page) {
@@ -71,6 +75,8 @@ export function App() {
         {page === "horse" && <HorseGenerator />}
         {page === "food" && <FoodWheel />}
         {page === "love" && <LoveHub />}
+        {page === "bucketlist" && <Bucketlist />}
+        {page === "wishlist" && <Wishlist />}
       </main>
     </div>
   );

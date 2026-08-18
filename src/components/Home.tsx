@@ -56,7 +56,36 @@ export function Home({ onNavigate }: HomeProps) {
         </div>
       </div>
 
-      <div className="feature-grid feature-grid-4">
+      <div className="feature-grid">
+        <FeatureCard
+          kicker="avonturen & herinneringen"
+          title="Onze bucketlist"
+          text="60 leuke dingen die we al samen gedaan hebben of nog gaan doen."
+          action="Bekijk bucketlist"
+          onClick={() => handleNav("bucketlist")}
+          highlighted
+        />
+        <FeatureCard
+          kicker="cadeautjes & wensen"
+          title="Eva's wishlist"
+          text="Zet hier alle cadeautjes en ideetjes die je graag wilt hebben."
+          action="Open wishlist"
+          onClick={() => handleNav("wishlist")}
+        />
+        <FeatureCard
+          kicker="love & knuffels"
+          title="Love hub"
+          text="Mood knopjes, reminders, knuffelmodus en een ademronde."
+          action="Land hier"
+          onClick={() => handleNav("love")}
+        />
+        <FeatureCard
+          kicker="keuzestress solver"
+          title="wtf gaan wij eten"
+          text="Draai da rad en laat het lot kiezen: frietjes, piesta of pokebowl."
+          action="Draai da rad"
+          onClick={() => handleNav("food")}
+        />
         <FeatureCard
           kicker="random cuteness"
           title="Lou generator"
@@ -70,21 +99,6 @@ export function Home({ onNavigate }: HomeProps) {
           text="Genereer een compleet ridiculous ster-stabel paardje."
           action="Genereer peirt"
           onClick={() => handleNav("horse")}
-        />
-        <FeatureCard
-          kicker="keuzestress solver"
-          title="wtf gaan wij eten"
-          text="Draai da rad en laat het lot kiezen: frietjes, piesta of pokebowl."
-          action="Draai da rad"
-          onClick={() => handleNav("food")}
-        />
-        <FeatureCard
-          kicker="love & knuffels"
-          title="Love hub"
-          text="Mood knopjes, reminders, knuffelmodus en een ademronde."
-          action="Land hier"
-          onClick={() => handleNav("love")}
-          highlighted
         />
       </div>
 

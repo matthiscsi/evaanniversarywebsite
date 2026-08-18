@@ -1,4 +1,4 @@
-export type Page = "home" | "photos" | "horse" | "food" | "love";
+export type Page = "home" | "photos" | "horse" | "food" | "love" | "bucketlist" | "wishlist";
 export type Mood = "sad" | "boos" | "druk";
 
 export interface MoodPack {
@@ -20,12 +20,93 @@ export interface FoodOption {
   hype: string[];
 }
 
+export interface BucketItem {
+  id: string;
+  text: string;
+  done: boolean;
+  category?: "movies" | "food" | "trips" | "fun" | "cozy";
+}
+
+export interface WishItem {
+  id: string;
+  title: string;
+  note?: string;
+  priority?: "must" | "nice" | "dream";
+  done?: boolean;
+  createdAt: number;
+}
+
 export const navItems: Array<{ page: Page; label: string }> = [
   { page: "home", label: "Home" },
   { page: "photos", label: "Lou generator" },
   { page: "horse", label: "Peirt generator" },
   { page: "food", label: "wtf gaan wij eten" },
-  { page: "love", label: "Love hub" }
+  { page: "love", label: "Love hub" },
+  { page: "bucketlist", label: "Bucketlist" },
+  { page: "wishlist", label: "Wishlist 🎁" }
+];
+
+export const initialBucketlist: BucketItem[] = [
+  { id: "contrex", text: "contrex drinken", done: false, category: "food" },
+  { id: "got", text: "game of thrones", done: true, category: "movies" },
+  { id: "death-note", text: "death note (half)", done: true, category: "movies" },
+  { id: "van-gogh", text: "van gogh film", done: true, category: "movies" },
+  { id: "boba", text: "bubbal thee", done: true, category: "food" },
+  { id: "monster", text: "monstar energi", done: true, category: "food" },
+  { id: "gent-antwerpen", text: "gent & antwerpen tour", done: true, category: "trips" },
+  { id: "minecraft", text: "minecraft kopen", done: true, category: "fun" },
+  { id: "strand-olijf", text: "strand feat olijfjes", done: true, category: "trips" },
+  { id: "nice", text: "nice bezoekje", done: false, category: "trips" },
+  { id: "museum", text: "museum naar keuze", done: true, category: "trips" },
+  { id: "makeup-matjas", text: "makeup matjas", done: false, category: "fun" },
+  { id: "fase-2022", text: "2022 fase herbeleving", done: false, category: "fun" },
+  { id: "sloefjes", text: "sloefjes kopen", done: false, category: "cozy" },
+  { id: "eva-handtekening", text: "eva handtekening maken", done: false, category: "fun" },
+  { id: "my-brilliant-friend", text: "my brilliant friend", done: true, category: "movies" },
+  { id: "evangelion", text: "evangelion", done: true, category: "movies" },
+  { id: "wenkbrauwen-hk", text: "wenkbrauwen plukken met hello kitty", done: true, category: "cozy" },
+  { id: "schreeuwen-tunnel", text: "schreeuwen in tunnel", done: false, category: "fun" },
+  { id: "dekentje-matjas", text: "dekentje voor matjas", done: false, category: "cozy" },
+  { id: "feety-promise", text: "feety promise", done: true, category: "cozy" },
+  { id: "get-out", text: "get out", done: true, category: "movies" },
+  { id: "leon", text: "leon the professional", done: true, category: "movies" },
+  { id: "coraline", text: "coraline", done: true, category: "movies" },
+  { id: "dancer-dark", text: "dancer in the dark", done: true, category: "movies" },
+  { id: "sjokolat", text: "sjokolat delen", done: true, category: "food" },
+  { id: "appletiser", text: "appletiser sippen in warm weer", done: false, category: "food" },
+  { id: "cinema", text: "cinema", done: true, category: "fun" },
+  { id: "piesa-hut", text: "piesa hut", done: true, category: "food" },
+  { id: "ferrero-smoothie", text: "ferrero rocher + chiazaad smoothie", done: true, category: "food" },
+  { id: "suprabazar", text: "suprabazar", done: true, category: "trips" },
+  { id: "alcohol-tipsy", text: "alcoholisering van eva minstens tipysy", done: true, category: "fun" },
+  { id: "pretpark", text: "pretpark", done: false, category: "trips" },
+  { id: "aquarium", text: "aquarium", done: false, category: "trips" },
+  { id: "veld-bloemen", text: "veld met bloemetjes vinden zonder mensen", done: false, category: "trips" },
+  { id: "teotfw", text: "the end of the fucking world", done: true, category: "movies" },
+  { id: "pen15", text: "pen15", done: false, category: "movies" },
+  { id: "derry-girls", text: "derry girls", done: false, category: "movies" },
+  { id: "skins", text: "skins", done: true, category: "movies" },
+  { id: "minecraft-film", text: "minkreft film", done: true, category: "movies" },
+  { id: "breakfast-club", text: "the breakfast club", done: true, category: "movies" },
+  { id: "milksjeek", text: "milksjeek maken", done: false, category: "food" },
+  { id: "sterren", text: "plek om duidelijk sterren te zien zonder artificieel licht", done: false, category: "trips" },
+  { id: "dierentuin", text: "dierentuin", done: false, category: "trips" },
+  { id: "brussel", text: "brussel bezoek", done: true, category: "trips" },
+  { id: "zwemmen", text: "samen zwemmen", done: true, category: "fun" },
+  { id: "bowlen", text: "bowlen", done: true, category: "fun" },
+  { id: "kathedraal", text: "kathedraal", done: false, category: "trips" },
+  { id: "escape-room", text: "escape room", done: false, category: "fun" },
+  { id: "alcohol-extreme", text: "alcoholisering extreme versie", done: true, category: "fun" },
+  { id: "fishing-lvl5", text: "irl fishing lvl5 worden", done: false, category: "fun" },
+  { id: "chernobyl", text: "chernobul", done: true, category: "movies" },
+  { id: "requiem", text: "requiem for a drem", done: true, category: "movies" },
+  { id: "nightcrawler", text: "nightcrawler", done: true, category: "movies" },
+  { id: "fleabag", text: "fleabag", done: true, category: "movies" },
+  { id: "ww2-museum", text: "canada & poland ww2 museum?", done: false, category: "trips" },
+  { id: "ergo-proxy", text: "ergo proxy", done: true, category: "movies" },
+  { id: "fight-club", text: "fight club", done: false, category: "movies" },
+  { id: "fallen-angels", text: "fallen angels", done: true, category: "movies" },
+  { id: "jumpsky", text: "jumpsky", done: false, category: "fun" }
 ];
 
 export const foodOptions: FoodOption[] = [
